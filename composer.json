@@ -1,0 +1,28 @@
+ 
+{
+    "name": "marc-mabe/php-enum-polyfill",
+    "description": "WIP",
+    "type": "library",
+    "keywords": [
+        "enum", "enumeration", "enumerator",
+        "type", "typehint", "type-hint",
+        "polyfill"
+    ],
+    "homepage": "https://github.com/marc-mabe/php-enum-polyfill",
+    "authors": [{
+        "name":     "Marc Bennewitz",
+        "email":    "dev@mabe.berlin",
+        "homepage": "https://mabe.berlin/",
+        "role":     "Lead"
+    }],
+    "license": "BSD-3-Clause",
+    "require": {
+        "php":            "^7.1 | ^8.1",
+        "ext-reflection": "*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.42",
+        "phpunit/phpunit": "^7.5.20 | ^8.5.8 | ^9.3.8",
+        "vimeo/psalm": "^3.15.0"
+    }
+}
