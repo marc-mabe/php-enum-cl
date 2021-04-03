@@ -12,7 +12,7 @@ if ($zendassertions == -1) {
     exit(1);
 }
 
-require_once __DIR__ . '/../src/EnumPolyfill.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // autoload test files
 spl_autoload_register(function (string $class): void {

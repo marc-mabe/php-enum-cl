@@ -2,7 +2,7 @@
 
 enum BasicStringEnum:string
 {
-    use BackedEnumBc;
+    use Mabe\EnumCl\BackedEnumBc;
 
     case ZERO = '0';
     case ONE = '1';

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-final class BasicStringEnum extends StringEnumPolyfill
+final class BasicStringEnum extends Mabe\EnumCl\StringEnumPolyfill
 {
     const ZERO = '0';
     const ONE = '1';

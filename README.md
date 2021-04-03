@@ -20,6 +20,8 @@ if (PHP_VERSION_ID < 80100) {
 
 namespace Vendor;
 
+use Mabe\EnumCl\IntEnumPolyfill;
+
 final class MyEnum extends IntEnumPolyfill
 {
     const ZERO = 0;
@@ -41,6 +43,8 @@ final class MyEnum extends IntEnumPolyfill
 <?php declare(strict_types=1);
 
 namespace Vendor;
+
+use Mabe\EnumCl\BackedEnumBc;
 
 enum MyEnum:int
 {
@@ -69,6 +73,8 @@ The following will work on PHP<8.1 using the polyfill and on PHP>=8.1 using the 
 
 namespace Vendor;
 
+use function Mabe\EnumCl\enum_exists;
+
 $zero = MyEnum::ZERO();
 $zero = MyEnum::from(0);
 $zero = MyEnum::tryFrom(0);
@@ -77,8 +83,8 @@ $cases = MyEnum::cases();
 $zero->value; // 0
 $zero->name;  // ZERO
 
-$zero instanceof UnitEnum;   // true
-$zero instanceof BackedEnum; // true
+$zero instanceof \UnitEnum;   // true
+$zero instanceof \BackedEnum; // true
 
 MyEnum::ZERO() === MyEnum::from(0);     // true
 MyEnum::from(0) === MyEnum::tryFrom(0); // true

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use function Mabe\EnumCl\enum_exists;
 
 class EnumExistsTest extends TestCase
 {
@@ -13,13 +14,13 @@ class EnumExistsTest extends TestCase
 
     public function testIntEnumPolyfill()
     {
-        eval('final class ' . __FUNCTION__ . ' extends IntEnumPolyfill {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\EnumCl\IntEnumPolyfill {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
     public function testStringEnumPolyfill()
     {
-        eval('final class ' . __FUNCTION__ . ' extends StringEnumPolyfill {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
@@ -45,7 +46,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends StringEnumPolyfill {}');
+                eval('final class ' . $class . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
             }
         };
         
@@ -64,7 +65,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends StringEnumPolyfill {}');
+                eval('final class ' . $class . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
             }
         };
         

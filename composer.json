@@ -1,12 +1,11 @@
- 
 {
-    "name": "marc-mabe/php-enum-polyfill",
-    "description": "WIP",
+    "name": "mabe/enumcl",
+    "description": "Compatibility layer for use of enumerations in PHP >= 7.1. Emulate enumerations in PHP < 8.1 and use native enumerations in PHP >= 8.1",
     "type": "library",
     "keywords": [
-        "enum", "enumeration", "enumerator",
+        "enum", "enumeration", "enumerator", "case", "cases",
         "type", "typehint", "type-hint",
-        "polyfill"
+        "polyfill", "compatibility"
     ],
     "homepage": "https://github.com/marc-mabe/php-enum-polyfill",
     "authors": [{
@@ -17,12 +16,17 @@
     }],
     "license": "BSD-3-Clause",
     "require": {
-        "php":            "^7.1 | ^8.1",
-        "ext-reflection": "*"
+        "php":            "^7.1 | ^8.0",
+        "ext-reflection": "*",
+        "symfony/polyfill-php80": "^1.15"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.42",
         "phpunit/phpunit": "^7.5.20 | ^8.5.8 | ^9.3.8",
         "vimeo/psalm": "^3.15.0"
+    },
+    "autoload": {
+        "psr-4": { "": "src" },
+        "files": [ "src/Mabe/EnumCl/functions.php" ]
     }
 }
