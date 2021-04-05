@@ -44,11 +44,11 @@ final class MyEnum extends IntEnumPolyfill
 
 namespace Vendor;
 
-use Mabe\EnumCl\BackedEnumBc;
+use Mabe\EnumCl\EnumBc;
 
 enum MyEnum:int
 {
-    use BackedEnumBc;
+    use EnumBc;
 
     case ZERO = 0;
     case ONE = 1;

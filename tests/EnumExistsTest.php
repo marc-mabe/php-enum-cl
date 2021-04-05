@@ -5,21 +5,22 @@ use function Mabe\EnumCl\enum_exists;
 
 class EnumExistsTest extends TestCase
 {
-    public function setUp(): void
+    public function testIntEnumPolyfill()
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
-    }
 
-    public function testIntEnumPolyfill()
-    {
         eval('final class ' . __FUNCTION__ . ' extends Mabe\EnumCl\IntEnumPolyfill {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
     public function testStringEnumPolyfill()
     {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
+        }
+        
         eval('final class ' . __FUNCTION__ . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
@@ -28,10 +29,41 @@ class EnumExistsTest extends TestCase
     {
         static::assertFalse(enum_exists('UnitEnum'));
     }
-    
+
+    public function testOtherImplementsUnitEnum()
+    {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
+        }
+
+        eval(
+            'final class ' . __FUNCTION__ . ' implements UnitEnum {'
+            . ' public static function cases(): array {}'
+            . '}'
+        );
+        static::assertFalse(enum_exists(__FUNCTION__));
+    }
+
     public function testInterfaceBackedEnum()
     {
         static::assertFalse(enum_exists('BackedEnum'));
+    }
+    
+    public function testOtherImplementsBackedEnum()
+    {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestIncomplete('FIXME');
+        }
+    
+        $valueType = PHP_VERSION_ID >= 80100 ? 'string|int' : '';
+        eval(
+            'final class ' . __FUNCTION__ . ' implements BackedEnum {'
+            . ' public static function from(' . $valueType . ' $value): self {}'
+            . ' public static function tryFrom(' . $valueType . ' $value): self {}'
+            . ' public static function cases(): array {}'
+            . '}'
+        );
+        static::assertFalse(enum_exists(__FUNCTION__));
     }
     
     public function testNonEnumClass()
@@ -41,6 +73,10 @@ class EnumExistsTest extends TestCase
     
     public function testAutoloadTrue()
     {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
+        }
+
         $enumClass = __FUNCTION__;
         $called = 0;
         $classLoader = function (string $class) use ($enumClass, &$called) {
@@ -60,6 +96,10 @@ class EnumExistsTest extends TestCase
     
     public function testAutoloadFalse()
     {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
+        }
+
         $enumClass = __FUNCTION__;
         $called = 0;
         $classLoader = function (string $class) use ($enumClass, &$called) {

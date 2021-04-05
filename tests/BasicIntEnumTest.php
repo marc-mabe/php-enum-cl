@@ -159,6 +159,7 @@ class BasicIntEnumTest extends TestCase
         foreach (self::NAMES_TO_VALUES as $name => $expectedValue) {
             $case = BasicIntEnum::$name();
             static::assertInstanceOf(BasicIntEnum::class, $case);
+            static::assertSame($name, $case->name);
             static::assertSame($expectedValue, $case->value);
         }
     }
