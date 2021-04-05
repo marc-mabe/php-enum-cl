@@ -1,7 +1,7 @@
- 
 # Hide hidden files by default
 .*
 !/.gitignore
+!/.gitattributes
 
 # Composer
 /vendor
