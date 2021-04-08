@@ -188,10 +188,42 @@ class BasicStringEnumTest extends TestCase
 
     public function testCloneShouldFail()
     {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('Cloning native enum cases will fatal error');
+        }
+
         $case = BasicStringEnum::from('1');
         
         $this->expectException('LogicException');
         $this->expectExceptionMessage('Trying to clone an uncloneable object of class BasicStringEnum');
         clone $case;
+    }
+
+    /* un/serialize */
+
+    public function testSerialize()
+    {
+        $case = BasicStringEnum::ONE();
+
+        if (PHP_VERSION_ID >= 80100) {
+            static::assertSame('E:19:"BasicStringEnum:ONE";', serialize($case));
+        } else {
+            $this->expectException('LogicException');
+            $this->expectExceptionMessage('Trying to serialize a non serializable emulated enum case of BasicStringEnum');
+            serialize($case);
+        }
+    }
+
+    public function testUnserialize()
+    {
+        $case = BasicStringEnum::ONE();
+
+        if (PHP_VERSION_ID >= 80100) {
+            static::assertSame($case, unserialize('E:19:"BasicStringEnum:ONE";'));
+        } else {
+            $this->expectException('LogicException');
+            $this->expectExceptionMessage('Trying to unserialize a non serializable emulated enum case of BasicStringEnum');
+            unserialize('O:15:"BasicStringEnum":0:{}');
+        }
     }
 }

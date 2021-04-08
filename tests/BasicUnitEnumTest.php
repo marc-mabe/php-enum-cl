@@ -78,10 +78,42 @@ class BasicUnitEnumTest extends TestCase
 
     public function testCloneShouldFail()
     {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('Cloning native enum cases will fatal error');
+        }
+
         $case = BasicUnitEnum::ONE();
         
         $this->expectException('LogicException');
         $this->expectExceptionMessage('Trying to clone an uncloneable object of class BasicUnitEnum');
         clone $case;
+    }
+    
+    /* un/serialize */
+
+    public function testSerialize()
+    {
+        $case = BasicUnitEnum::ONE();
+
+        if (PHP_VERSION_ID >= 80100) {
+            static::assertSame('E:17:"BasicUnitEnum:ONE";', serialize($case));
+        } else {
+            $this->expectException('LogicException');
+            $this->expectExceptionMessage('Trying to serialize a non serializable emulated enum case of BasicUnitEnum');
+            serialize($case);
+        }
+    }
+
+    public function testUnserialize()
+    {
+        $case = BasicUnitEnum::ONE();
+
+        if (PHP_VERSION_ID >= 80100) {
+            static::assertSame($case, unserialize('E:17:"BasicUnitEnum:ONE";'));
+        } else {
+            $this->expectException('LogicException');
+            $this->expectExceptionMessage('Trying to unserialize a non serializable emulated enum case of BasicUnitEnum');
+            unserialize('O:13:"BasicUnitEnum":0:{}');
+        }
     }
 }

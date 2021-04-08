@@ -53,6 +53,7 @@ abstract class BackedEnumPolyfill implements BackedEnum
 
     /**
      * @throws LogicException Enum cases are not cloneable
+     * @psalm-return never-return
      */
     final public function __clone()
     {
@@ -60,25 +61,23 @@ abstract class BackedEnumPolyfill implements BackedEnum
     }
 
     /**
-     * @throws LogicException Enums are not serializable
-     *                        because instances are implemented as singletons
+     * @throws LogicException Emulated enum cases are not serializable
      *
      * @psalm-return never-return
      */
     final public function __sleep()
     {
-        throw new LogicException('Enums are not serializable');
+        throw new LogicException('Trying to serialize a non serializable emulated enum case of ' . static::class);
     }
 
     /**
-     * @throws LogicException Enums are not serializable
-     *                        because instances are implemented as singletons
+     * @throws LogicException Emulated enum cases are not serializable
      *
      * @psalm-return never-return
      */
     final public function __wakeup()
     {
-        throw new LogicException('Enums are not serializable');
+        throw new LogicException('Trying to unserialize a non serializable emulated enum case of ' . static::class);
     }
 
     /**
