@@ -109,6 +109,7 @@ abstract class BackedEnumPolyfill implements BackedEnum
 
     /**
      * @param int|string $value
+     * @return null|self
      * @throws ValueError     If the given value is not defined in the enumeration
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
@@ -139,6 +140,7 @@ abstract class BackedEnumPolyfill implements BackedEnum
     
     /**
      * @param int|string $value
+     * @return null|self
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
      */
