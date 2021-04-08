@@ -13,23 +13,23 @@ jobs:
     strategy:
       matrix:
         include:
-          - PHP_VERSION: 7.1
+          - PHP_VERSION: '7.1'
             CODE_COVERAGE: false
             RUN_PHPSTAN: false
             RUN_PSALM: false
-          - PHP_VERSION: 7.2
+          - PHP_VERSION: '7.2'
             CODE_COVERAGE: true
             RUN_PHPSTAN: false
             RUN_PSALM: false
-          - PHP_VERSION: 7.3
+          - PHP_VERSION: '7.3'
             CODE_COVERAGE: true
             RUN_PHPSTAN: false
             RUN_PSALM: false
-          - PHP_VERSION: 7.4
+          - PHP_VERSION: '7.4'
             CODE_COVERAGE: true
             RUN_PHPSTAN: false
             RUN_PSALM: false
-          - PHP_VERSION: 8.0
+          - PHP_VERSION: '8.0'
             CODE_COVERAGE: true
             RUN_PHPSTAN: false
             RUN_PSALM: false
@@ -42,24 +42,29 @@ jobs:
         id: cache-docker-image
         uses: actions/cache@v2
         with:
-          path: /tmp/docker-image.tar
-          key: cache-docker-image-test:${{ matrix.PHP_VERSION }}
+          path: /tmp/cache-docker-image.tar
+          key: cache-docker-image:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
 
       - name: Load Docker Image
         if: steps.cache-docker-image.outputs.cache-hit == 'true'
-        run: docker load --input /tmp/docker-image.tar
+        run: docker load --input /tmp/cache-docker-image.tar
 
       - name: Build Docker Image
         if: steps.cache-docker-image.outputs.cache-hit != 'true'
-        run: docker build -f .github/workflows/test.Dockerfile -t 'test:${{ matrix.PHP_VERSION }}' --build-arg 'PHP_VERSION=${{ matrix.PHP_VERSION }}' .
+        run: docker build -f .github/workflows/test.Dockerfile -t 'test:${{ matrix.PHP_VERSION }}' --build-arg 'PHP_VERSION=${{ matrix.PHP_VERSION }}' --build-arg 'CODE_COVERAGE=${{ matrix.CODE_COVERAGE }}' .
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer Cache Files
         uses: actions/cache@v2
         with:
-          path: /tmp/composer-cache-files
-          key: cache-composer-cache-files-${{ matrix.PHP_VERSION }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: cache-composer-cache-files:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
           restore-keys: |
-            cache-composer-cache-files-
+            cache-composer-cache-files:${{ matrix.PHP_VERSION }}:
+            cache-composer-cache-files:
 
       - name: Install Composer Dependencies
         run: |
@@ -93,4 +98,4 @@ jobs:
 
       - name: Export Docker Image
         if: steps.cache-docker-image.outputs.cache-hit != 'true'
-        run: docker save --output /tmp/docker-image.tar 'test:${{ matrix.PHP_VERSION }}'
+        run: docker save --output /tmp/cache-docker-image.tar 'test:${{ matrix.PHP_VERSION }}'
