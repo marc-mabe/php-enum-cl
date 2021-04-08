@@ -1,5 +1,8 @@
 # Enum Polyfill for PHP
- 
+
+[![Build Status](https://github.com/marc-mabe/php-enum-polyfill/workflows/Test/badge.svg?branch=master)](https://github.com/marc-mabe/php-enum-polyfill/actions?query=workflow%3ATest%20branch%3Amaster)
+[![Code Coverage](https://codecov.io/github/marc-mabe/php-enum-polyfill/coverage.svg?branch=master)](https://codecov.io/gh/marc-mabe/php-enum-polyfill/branch/master/)
+
 ## How-to create
 
 **Vendor\MyEnum.php**
