@@ -58,8 +58,8 @@ class EnumExistsTest extends TestCase
         $valueType = PHP_VERSION_ID >= 80100 ? 'string|int' : '';
         eval(
             'final class ' . __FUNCTION__ . ' implements BackedEnum {'
-            . ' public static function from(' . $valueType . ' $value): self {}'
-            . ' public static function tryFrom(' . $valueType . ' $value): self {}'
+            . ' public static function from(' . $valueType . ' $value): BackedEnum {}'
+            . ' public static function tryFrom(' . $valueType . ' $value): BackedEnum {}'
             . ' public static function cases(): array {}'
             . '}'
         );
