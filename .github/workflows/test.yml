@@ -61,9 +61,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: cache-composer-cache-files:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
+          key: cache-composer-cache-files:${{ matrix.PHP_VERSION }}
           restore-keys: |
-            cache-composer-cache-files:${{ matrix.PHP_VERSION }}:
             cache-composer-cache-files:
 
       - name: Install Composer Dependencies
