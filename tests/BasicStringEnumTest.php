@@ -183,4 +183,15 @@ class BasicStringEnumTest extends TestCase
         $this->expectExceptionMessage('BasicStringEnum::ZERO() expects 0 arguments, 3 given');
         BasicStringEnum::ZERO(1, 2, 3);
     }
+    
+    /* BasicStringEnum::__clone() */
+
+    public function testCloneShouldFail()
+    {
+        $case = BasicStringEnum::from('1');
+        
+        $this->expectException('LogicException');
+        $this->expectExceptionMessage('Trying to clone an uncloneable object of class BasicStringEnum');
+        clone $case;
+    }
 }

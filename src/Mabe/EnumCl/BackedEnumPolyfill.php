@@ -52,12 +52,11 @@ abstract class BackedEnumPolyfill implements BackedEnum
     }
 
     /**
-     * @throws LogicException Enums are not cloneable
-     *                        because instances are implemented as singletons
+     * @throws LogicException Enum cases are not cloneable
      */
-    final protected function __clone()
+    final public function __clone()
     {
-        throw new LogicException('Enums are not cloneable');
+        throw new LogicException('Trying to clone an uncloneable object of class ' . static::class);
     }
 
     /**

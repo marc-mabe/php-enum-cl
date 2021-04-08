@@ -73,4 +73,15 @@ class BasicUnitEnumTest extends TestCase
         $this->expectExceptionMessage('BasicUnitEnum::ZERO() expects 0 arguments, 3 given');
         BasicUnitEnum::ZERO(1, 2, 3);
     }
+    
+    /* BasicUnitEnum::__clone() */
+
+    public function testCloneShouldFail()
+    {
+        $case = BasicUnitEnum::ONE();
+        
+        $this->expectException('LogicException');
+        $this->expectExceptionMessage('Trying to clone an uncloneable object of class BasicUnitEnum');
+        clone $case;
+    }
 }
