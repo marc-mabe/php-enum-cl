@@ -194,14 +194,12 @@ abstract class BackedEnumPolyfill implements BackedEnum
             $caseConstants = [];
             if (\PHP_VERSION_ID >= 80000) {
                 $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PUBLIC);
-            } elseif (\PHP_VERSION_ID >= 70100) {
+            } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
                     if ($reflConstant->isPublic()) {
                         $caseConstants[ $reflConstant->getName() ] = $reflConstant->getValue();
                     }
                 }
-            } else {
-                $caseConstants = $reflection->getConstants();
             }
 
             $cases = [];
