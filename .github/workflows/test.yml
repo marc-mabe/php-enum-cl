@@ -71,7 +71,7 @@ jobs:
           if [ "${{ matrix.RUN_PHPSTAN }}" != "true" ]; then composer remove --dev phpstan/phpstan --no-update --no-interaction; fi
           if [ "${{ matrix.RUN_PSALM }}" != "true" ]; then composer remove --dev vimeo/psalm --no-update --no-interaction; fi
           if [ "${{ matrix.RUN_BENCHMARK }}" != "true" ]; then composer remove --dev phpbench/phpbench --no-update --no-interaction; fi
-          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v '${{ steps.composer-cache.outputs.dir }}:/.composer-cache-dir' 'test:${{ matrix.PHP_VERSION }}' COMPOSER_CACHE_DIR=/.composer-cache-dir composer install --no-interaction --no-progress --prefer-dist ${{ matrix.COMPOSER_EXTRA_ARGS }}
+          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v '${{ steps.composer-cache.outputs.dir }}:/.composer-cache-dir' 'test:${{ matrix.PHP_VERSION }}' sh -c 'COMPOSER_CACHE_DIR=/.composer-cache-dir composer install --no-interaction --no-progress --prefer-dist ${{ matrix.COMPOSER_EXTRA_ARGS }}'
 
       - name: Run Unit Test
         run: |
