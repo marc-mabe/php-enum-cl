@@ -36,7 +36,7 @@ namespace {
     }
 }
 
-namespace Mabe\EnumCl {
+namespace Mabe\Enum\Cl {
     /**
     * Checks if the given enumeration has been natively defined
     * or for PHP < 8.1 it's a class emulating enumerations via Mabe\EnumCl\IntEnumPolyfill or Mabe\EnumCl\StringEnumPolyfill

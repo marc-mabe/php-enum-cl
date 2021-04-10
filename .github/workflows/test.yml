@@ -14,25 +14,25 @@ jobs:
       matrix:
         include:
           - PHP_VERSION: '7.1'
-            CODE_COVERAGE: false
-            RUN_PHPSTAN: false
-            RUN_PSALM: false
+            CODE_COVERAGE: 'false'
+            RUN_PHPSTAN: 'false'
+            RUN_PSALM: 'false'
           - PHP_VERSION: '7.2'
-            CODE_COVERAGE: true
-            RUN_PHPSTAN: false
-            RUN_PSALM: false
+            CODE_COVERAGE: 'true'
+            RUN_PHPSTAN: 'false'
+            RUN_PSALM: 'false'
           - PHP_VERSION: '7.3'
-            CODE_COVERAGE: true
-            RUN_PHPSTAN: false
-            RUN_PSALM: false
+            CODE_COVERAGE: 'true'
+            RUN_PHPSTAN: 'false'
+            RUN_PSALM: 'false'
           - PHP_VERSION: '7.4'
-            CODE_COVERAGE: true
-            RUN_PHPSTAN: false
-            RUN_PSALM: false
+            CODE_COVERAGE: 'true'
+            RUN_PHPSTAN: 'false'
+            RUN_PSALM: 'false'
           - PHP_VERSION: '8.0'
-            CODE_COVERAGE: true
-            RUN_PHPSTAN: false
-            RUN_PSALM: false
+            CODE_COVERAGE: 'true'
+            RUN_PHPSTAN: 'false'
+            RUN_PSALM: 'false'
             #COMPOSER_EXTRA_ARGS: --ignore-platform-reqs
 
     steps:

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mabe\EnumCl;
+namespace Mabe\Enum\Cl;
 
 abstract class IntEnumPolyfill extends BackedEnumPolyfill
 {

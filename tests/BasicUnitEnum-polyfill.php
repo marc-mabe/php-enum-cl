@@ -12,7 +12,7 @@
  * @method static self EIGHT()
  * @method static self NINE()
  */
-final class BasicUnitEnum extends Mabe\EnumCl\UnitEnumPolyfill
+final class BasicUnitEnum extends Mabe\Enum\Cl\UnitEnumPolyfill
 {
     /** @internal */
     const ZERO = null;

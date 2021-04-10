@@ -4,8 +4,8 @@ interface BackedEnum extends UnitEnum {
     //public int|string $value;
 
     /** @param int|string $value */
-    public static function from($value): BackedEnum;
+    public static function from($value): self;
 
     /** @param int|string $value */
-    public static function tryFrom($value): ?BackedEnum;
+    public static function tryFrom($value): ?self;
 }

@@ -1,18 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Mabe\EnumCl;
+namespace Mabe\Enum\Cl;
 
 use ArgumentCountError;
-use BackedEnum;
 use BadMethodCallException;
 use LogicException;
 use ReflectionClass;
 use ReflectionClassConstant;
 use TypeError;
+use UnitEnum;
 use ValueError;
 
-/** @internal */
-abstract class BackedEnumPolyfill implements BackedEnum
+abstract class UnitEnumPolyfill implements UnitEnum
 {
     /**
      * The name of the current case
@@ -21,21 +20,6 @@ abstract class BackedEnumPolyfill implements BackedEnum
      * @readonly
      */
     public $name;
-
-    /**
-     * The value of the current case
-     *
-     * @var int|string
-     * @readonly
-     */
-    public $value;
-
-    /**
-     * A map of case names and values by enumeration class
-     *
-     * @var array<class-string<BackedEnumPolyfill>, array<string, int|string>>
-     */
-    private static $caseConstants = [];
 
     /**
      * A map of case names and instances by enumeration class
@@ -108,54 +92,6 @@ abstract class BackedEnumPolyfill implements BackedEnum
     }
 
     /**
-     * @param int|string $value
-     * @return null|self
-     * @throws ValueError     If the given value is not defined in the enumeration
-     * @throws TypeError      On argument type not matching enumeration type
-     * @throws AssertionError On ambiguous case constant values or invalid case constant types
-     */
-    final public static function from($value): BackedEnum
-    {
-        self::init(static::class);
-        
-        $name = \array_search($value, self::$caseConstants[static::class], true);
-        if ($name === false) {
-            if (\is_subclass_of(static::class, IntEnumPolyfill::class)) {
-                if (!\is_int($value)) {
-                    throw new TypeError(static::class . '::from(): Argument #1 ($value) must be of type int, ' . \get_debug_type($value) . ' given');
-                }
-
-                throw new ValueError("{$value} is not a valid backing value for enum \"" . static::class . '"');
-            } elseif (\is_subclass_of(static::class, StringEnumPolyfill::class)) {
-                if (!\is_string($value)) {
-                    throw new TypeError(static::class . '::from(): Argument #1 ($value) must be of type string, ' . \get_debug_type($value) . ' given');
-                }
-
-                throw new ValueError("\"{$value}\" is not a valid backing value for enum \"" . static::class . '"');
-            }
-        }
-
-        return self::$cases[static::class][$name];
-    }
-    
-    /**
-     * @param int|string $value
-     * @return null|self
-     * @throws TypeError      On argument type not matching enumeration type
-     * @throws AssertionError On ambiguous case constant values or invalid case constant types
-     */
-    final public static function tryFrom($value): ?BackedEnum
-    {
-        try {
-            return static::from($value);
-        } catch (TypeError $e) {
-            throw new TypeError(\str_replace('::from(', '::tryFrom(', $e->getMessage()));
-        } catch (ValueError $e) {
-            return null;
-        }
-    }
-
-    /**
     * Get a list of case instances
     *
     * @return static[]
@@ -204,12 +140,14 @@ abstract class BackedEnumPolyfill implements BackedEnum
 
             $cases = [];
             foreach ($caseConstants as $name => $value) {
+                /*
                 assert(
                     (\is_subclass_of($enumClass, IntEnumPolyfill::class) && \is_int($value))
-                    || (\is_subclass_of($enumClass, StringEnumPolyfill::class) && \is_string($value)),
+                    || (\is_subclass_of($enumClass, StringEnumPolyfill::class) && \is_string($value))
                     "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
                 );
-                
+                */
+
                 assert(
                     \count(\array_keys($caseConstants, $value, true)) === 1,
                     "Enum case value for {$enumClass}::{$name} is ambiguous"
@@ -218,8 +156,7 @@ abstract class BackedEnumPolyfill implements BackedEnum
                 $cases[$name] = new $enumClass($name, $value);
             }
 
-            self::$cases[$enumClass]         = $cases;
-            self::$caseConstants[$enumClass] = $caseConstants;
+            self::$cases[$enumClass] = $cases;
         }
     }
 }

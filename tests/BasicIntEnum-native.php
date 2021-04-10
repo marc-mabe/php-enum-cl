@@ -14,7 +14,7 @@
  */
 enum BasicIntEnum:int
 {
-    use Mabe\EnumCl\EnumBc;
+    use Mabe\Enum\Cl\EnumBc;
 
     /** @internal */
     case ZERO = 0;

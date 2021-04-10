@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use function Mabe\EnumCl\enum_exists;
+use function Mabe\Enum\Cl\enum_exists;
 
 class EnumExistsTest extends TestCase
 {
@@ -11,7 +11,7 @@ class EnumExistsTest extends TestCase
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
 
-        eval('final class ' . __FUNCTION__ . ' extends Mabe\EnumCl\IntEnumPolyfill {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\IntEnumPolyfill {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
@@ -21,7 +21,7 @@ class EnumExistsTest extends TestCase
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
         
-        eval('final class ' . __FUNCTION__ . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\StringEnumPolyfill {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
@@ -52,17 +52,17 @@ class EnumExistsTest extends TestCase
     public function testOtherImplementsBackedEnum()
     {
         if (PHP_VERSION_ID >= 80100) {
-            $this->markTestIncomplete('FIXME');
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
-    
-        $valueType = PHP_VERSION_ID >= 80100 ? 'string|int' : '';
+
         eval(
             'final class ' . __FUNCTION__ . ' implements BackedEnum {'
-            . ' public static function from(' . $valueType . ' $value): BackedEnum {}'
-            . ' public static function tryFrom(' . $valueType . ' $value): BackedEnum {}'
+            . ' public static function from($value): self {}'
+            . ' public static function tryFrom($value): self {}'
             . ' public static function cases(): array {}'
             . '}'
         );
+
         static::assertFalse(enum_exists(__FUNCTION__));
     }
     
@@ -82,7 +82,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
+                eval('final class ' . $class . ' extends Mabe\Enum\Cl\StringEnumPolyfill {}');
             }
         };
         
@@ -105,7 +105,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends Mabe\EnumCl\StringEnumPolyfill {}');
+                eval('final class ' . $class . ' extends Mabe\Enum\Cl\StringEnumPolyfill {}');
             }
         };
         

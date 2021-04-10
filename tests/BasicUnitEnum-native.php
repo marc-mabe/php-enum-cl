@@ -14,7 +14,7 @@
  */
 enum BasicUnitEnum
 {
-    use Mabe\EnumCl\EnumBc;
+    use Mabe\Enum\Cl\EnumBc;
 
     /** @internal */
     case ZERO;
