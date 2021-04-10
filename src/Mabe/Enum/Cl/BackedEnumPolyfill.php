@@ -11,7 +11,16 @@ use ReflectionClassConstant;
 use TypeError;
 use ValueError;
 
-/** @internal */
+/**
+ * Abstract base class for emulated backed enumerations.
+ *
+ * @copyright 2021, Marc Bennewitz
+ * @license http://github.com/marc-mabe/php-enum-cl/blob/master/LICENSE.txt New BSD License
+ * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
+ * @internal
+ *
+ * @psalm-immutable
+ */
 abstract class BackedEnumPolyfill implements BackedEnum
 {
     /**

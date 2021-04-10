@@ -1,25 +1,26 @@
 <?php declare(strict_types=1);
 
-if (PHP_VERSION_ID >= 70400) {
-    interface BackedEnum extends UnitEnum {
-        //public int|string $value;
+/**
+ * PHP 8.1 stub 
+ *
+ * @copyright 2021, Marc Bennewitz
+ * @license http://github.com/marc-mabe/php-enum-cl/blob/master/LICENSE.txt New BSD License
+ * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
+ */
+interface BackedEnum extends UnitEnum {
+    //public string|int $value;
 
-        /** @param int|string $value */
-        public static function from($value): self;
+    /**
+     * @param string|int $value
+     * @return static
+     * @psalm-pure
+     */
+    public static function from($value): BackedEnum;
 
-        /** @param int|string $value */
-        public static function tryFrom($value): ?self;
-    }
-} else {
-    interface BackedEnum extends UnitEnum {
-        //public int|string $value;
-
-        /** @param int|string $value */
-        public static function from($value): BackedEnum;
-
-        /** @param int|string $value */
-        public static function tryFrom($value): ?BackedEnum;
-    }
+    /**
+     * @param string|int $value
+     * @return null|static
+     * @psalm-pure
+     */
+    public static function tryFrom($value): ?BackedEnum;
 }
-
-
