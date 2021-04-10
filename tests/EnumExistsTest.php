@@ -57,8 +57,8 @@ class EnumExistsTest extends TestCase
 
         eval(
             'final class ' . __FUNCTION__ . ' implements BackedEnum {'
-            . ' public static function from($value): self {}'
-            . ' public static function tryFrom($value): self {}'
+            . ' public static function from($value): BackedEnum {}'
+            . ' public static function tryFrom($value): ?BackedEnum {}'
             . ' public static function cases(): array {}'
             . '}'
         );

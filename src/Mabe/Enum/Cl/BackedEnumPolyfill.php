@@ -114,7 +114,7 @@ abstract class BackedEnumPolyfill implements BackedEnum
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
      */
-    final public static function from($value): self
+    final public static function from($value): BackedEnum
     {
         self::init(static::class);
         
@@ -144,7 +144,7 @@ abstract class BackedEnumPolyfill implements BackedEnum
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
      */
-    final public static function tryFrom($value): ?self
+    final public static function tryFrom($value): ?BackedEnum
     {
         try {
             return static::from($value);
