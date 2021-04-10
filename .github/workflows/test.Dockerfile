@@ -1,5 +1,4 @@
-ARG PHP_VERSION=latest
-ARG CODE_COVERAGE=false
+ARG PHP_VERSION
 FROM php:${PHP_VERSION}-cli-alpine
 
 WORKDIR /workdir
@@ -8,10 +7,10 @@ WORKDIR /workdir
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_HTACCESS_PROTECT=0
-ENV COMPOSER_CACHE_DIR=/.composer
+ENV COMPOSER_CACHE_DIR=/.composer-cache-dir
 
 # install PHP extension pcov
-RUN echo "${CODE_COVERAGE}"
+ARG CODE_COVERAGE
 RUN if [[ "${CODE_COVERAGE}" == "true" ]] ; then \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && mkdir -p /usr/src/php/ext/pcov && curl -fsSL https://pecl.php.net/get/pcov | tar xvz -C /usr/src/php/ext/pcov --strip 1 \

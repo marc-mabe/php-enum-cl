@@ -39,37 +39,37 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Cache Docker Image
-        id: cache-docker-image
+        id: docker-cache-image
         uses: actions/cache@v2
         with:
-          path: /tmp/cache-docker-image.tar
-          key: cache-docker-image:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
+          path: /tmp/docker-cache-image.tar
+          key: docker-cache-image:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
 
       - name: Load Docker Image
-        if: steps.cache-docker-image.outputs.cache-hit == 'true'
-        run: docker load --input /tmp/cache-docker-image.tar
+        if: steps.docker-cache-image.outputs.cache-hit == 'true'
+        run: docker load --input /tmp/docker-cache-image.tar
 
       - name: Build Docker Image
-        if: steps.cache-docker-image.outputs.cache-hit != 'true'
+        if: steps.docker-cache-image.outputs.cache-hit != 'true'
         run: docker build -f .github/workflows/test.Dockerfile -t 'test:${{ matrix.PHP_VERSION }}' --build-arg 'PHP_VERSION=${{ matrix.PHP_VERSION }}' --build-arg 'CODE_COVERAGE=${{ matrix.CODE_COVERAGE }}' .
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache Composer Cache Files
+      - name: Cache Composer Cache Dir
         uses: actions/cache@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: cache-composer-cache-files:${{ matrix.PHP_VERSION }}
+          path: /tmp/composer-cache-dir
+          key: composer-cache-dir:${{ matrix.PHP_VERSION }}
           restore-keys: |
-            cache-composer-cache-files:
+            composer-cache-dir:
 
       - name: Install Composer Dependencies
         run: |
-          if [ "${{ matrix.RUN_PHPSTAN }}" != "true" ]; then composer remove --dev phpstan/phpstan --no-update --no-interaction; fi
-          if [ "${{ matrix.RUN_PSALM }}" != "true" ]; then composer remove --dev vimeo/psalm --no-update --no-interaction; fi
-          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v '${{ steps.composer-cache.outputs.dir }}:/.composer-cache-dir' 'test:${{ matrix.PHP_VERSION }}' sh -c 'COMPOSER_CACHE_DIR=/.composer-cache-dir composer install --no-interaction --no-progress --prefer-dist ${{ matrix.COMPOSER_EXTRA_ARGS }}'
+          if [ "${{ matrix.RUN_PHPSTAN }}" != "true" ]; then
+            docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v '/tmp/composer-cache-dir:/.composer-cache-dir' 'test:${{ matrix.PHP_VERSION }}' composer remove --dev phpstan/phpstan --no-update --no-interaction
+          fi
+          if [ "${{ matrix.RUN_PSALM }}" != "true" ]; then
+            docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v '/tmp/composer-cache-dir:/.composer-cache-dir' 'test:${{ matrix.PHP_VERSION }}' composer remove --dev vimeo/psalm --no-update --no-interaction
+          fi
+          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v '/tmp/composer-cache-dir:/.composer-cache-dir' 'test:${{ matrix.PHP_VERSION }}' composer install --no-interaction --no-progress --prefer-dist ${{ matrix.COMPOSER_EXTRA_ARGS }}
 
       - name: Run Unit Test
         run: |
@@ -81,19 +81,18 @@ jobs:
 
       - name: Upload Codecov Report
         uses: codecov/codecov-action@v1
-        if: ${{ matrix.CODE_COVERAGE }}
+        if: ${{ matrix.CODE_COVERAGE == 'true' }}
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           file: .clover.xml
 
       - name: Run PHPStan
-        if: ${{ matrix.RUN_PHPSTAN }}
+        if: ${{ matrix.RUN_PHPSTAN == 'true' }}
         run: docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'memory_limit=2G' ./vendor/bin/phpstan analyse --level max src/ tests/
 
       - name: Run psalm
-        if: ${{ matrix.RUN_PSALM }}
+        if: ${{ matrix.RUN_PSALM == 'true' }}
         run: mkdir -p "$HOME/.cache/psalm" && docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v "$HOME/.cache/psalm:/.cache/psalm" 'test:${{ matrix.PHP_VERSION }}' php ./vendor/bin/psalm
 
       - name: Export Docker Image
-        if: steps.cache-docker-image.outputs.cache-hit != 'true'
-        run: docker save --output /tmp/cache-docker-image.tar 'test:${{ matrix.PHP_VERSION }}'
+        if: steps.docker-cache-image.outputs.cache-hit != 'true'
+        run: docker save --output /tmp/docker-cache-image.tar 'test:${{ matrix.PHP_VERSION }}'
