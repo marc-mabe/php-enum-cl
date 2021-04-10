@@ -4,9 +4,19 @@ namespace Example;
 
 use Mabe\Enum\Cl\StringEnumPolyfill;
 
+/**
+ * @method static UserStatus ACTIVE()
+ * @method static UserStatus BANNED()
+ * @method static UserStatus DELETED()
+ */
 final class UserStatus extends StringEnumPolyfill
 {
-    const ACTIVE  = 'active';
-    const BANNED  = 'banned';
+    /** @internal */
+    const ACTIVE = 'active';
+
+    /** @internal */
+    const BANNED = 'banned';
+
+    /** @internal */
     const DELETED = 'deleted';
 }

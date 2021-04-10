@@ -1,4 +1,5 @@
 {
+    "name": "marc-mabe/enum-cl-example-doctrine",
     "description": "Example to use marc-mabe/enum-cl with doctrine",
     "keywords": ["example"],
     "homepage": "https://github.com/marc-mabe/php-enum-cl",
@@ -12,7 +13,7 @@
     "require": {
         "php": "^7.1 | ^8.0",
         "marc-mabe/enum-cl": "@dev",
-        "doctrine/orm": "^2.8"
+        "doctrine/orm": "^2.7"
     },
     "autoload": {
         "psr-4": { "Example\\": "src" }

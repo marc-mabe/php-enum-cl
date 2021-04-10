@@ -11,7 +11,7 @@
         beStrictAboutOutputDuringTests="true"
         beStrictAboutCoversAnnotation="true"
         >
-    <testsuite name="php-enum Test-Suite">
+    <testsuite name="php-enum-cl Test-Suite">
         <directory>./tests</directory>
     </testsuite>
     <filter>

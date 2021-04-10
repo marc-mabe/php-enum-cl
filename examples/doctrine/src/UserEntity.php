@@ -11,21 +11,24 @@ use Doctrine\ORM\Mapping as ORM;
 class UserEntity
 {
     /**
-     * @ORM\Column(name="rowid", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="rowid", type="string", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @var null|string
      */
-    private ?string $id = null;
+    private $id = null;
 
     /**
      * @ORM\Column(name="name", type="string", length=85, nullable=false)
+     * @var string
      */
-    private string $name;
+    private $name;
     
     /**
      * @ORM\Column(name="status", type="UserStatus", nullable=false)
+     * @var UserStatus
      */
-    private UserStatus $status;
+    private $status;
 
     public function __construct(string $name)
     {

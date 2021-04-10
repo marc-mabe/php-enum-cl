@@ -13,9 +13,9 @@ require __DIR__ . '/vendor/autoload.php';
 // initialize doctrine
 $config = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/src'], true, null, null, false);
 $em = EntityManager::create(['driver' => 'pdo_sqlite', 'uri' => 'sqlite:///:memory:'], $config);
-$em->getConnection()->exec('CREATE TABLE User (name TEXT NOT NULL, status TEXT NOT NULL)');
+$em->getConnection()->executeStatement('CREATE TABLE User (name TEXT NOT NULL, status TEXT NOT NULL)');
 
-
+// register custom doctrine type
 Type::addType('UserStatus', DoctrineUserStatusType::class);
 $em->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('UserStatus', 'UserStatus');
 
@@ -29,9 +29,9 @@ $em->clear();
 $query = $em->createQuery("SELECT u FROM Example\\UserEntity u WHERE u.status = 'active'");
 $user = $query->getSingleResult();
 var_dump(
-    $user->getId(),    // "1"
-    $user->getName(),  // "test-user"
-    $user->getStatus() // object(Example\UserStatus) { value = "active", name = "ACTIVE" }
+    $user->getId(),     // "1"
+    $user->getName(),   // "test-user"
+    $user->getStatus()  // Example\UserStatus Object ( value => "active", name => "ACTIVE" )
 );
 
 // ban user
@@ -40,7 +40,7 @@ $em->persist($user);
 $em->flush();
 $em->clear();
 var_dump(
-    $user->getId(),    // "1"
-    $user->getName(),  // "test-user"
-    $user->getStatus() // object(Example\UserStatus) { value = "banned", name = "BANNED" }
+    $user->getId(),     // "1"
+    $user->getName(),   // "test-user"
+    $user->getStatus()  // Example\UserStatus Object ( value => "banned", name => "BANNED" )
 );
