@@ -1,5 +1,6 @@
 .* export-ignore
 /tests export-ignore
+/examples export-ignore
 phpunit.xml.dist export-ignore
 phpstan.neon.dist export-ignore
 psalm.xml export-ignore

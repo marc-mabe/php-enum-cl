@@ -1,0 +1,20 @@
+{
+    "description": "Example to use marc-mabe/enum-cl with doctrine",
+    "keywords": ["example"],
+    "homepage": "https://github.com/marc-mabe/php-enum-cl",
+    "authors": [{
+        "name":     "Marc Bennewitz",
+        "email":    "dev@mabe.berlin",
+        "homepage": "https://mabe.berlin/",
+        "role":     "Lead"
+    }],
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": "^7.1 | ^8.0",
+        "marc-mabe/enum-cl": "@dev",
+        "doctrine/orm": "^2.8"
+    },
+    "autoload": {
+        "psr-4": { "Example\\": "src" }
+    }
+}
