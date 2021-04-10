@@ -1,7 +1,7 @@
-# Enum Polyfill for PHP
+# Compatibility layer for emulating enumerations in PHP \< 8.1 and use native enumerations in PHP \>= 8.1
 
-[![Build Status](https://github.com/marc-mabe/php-enum-polyfill/workflows/Test/badge.svg?branch=master)](https://github.com/marc-mabe/php-enum-polyfill/actions?query=workflow%3ATest%20branch%3Amaster)
-[![Code Coverage](https://codecov.io/github/marc-mabe/php-enum-polyfill/coverage.svg?branch=master)](https://codecov.io/gh/marc-mabe/php-enum-polyfill/branch/master/)
+[![Build Status](https://github.com/marc-mabe/php-enum-cl/workflows/Test/badge.svg?branch=master)](https://github.com/marc-mabe/php-enum-cl/actions?query=workflow%3ATest%20branch%3Amaster)
+[![Code Coverage](https://codecov.io/github/marc-mabe/php-enum-cl/coverage.svg?branch=master)](https://codecov.io/gh/marc-mabe/php-enum-cl/branch/master/)
 
 ## How-to create
 
@@ -23,7 +23,7 @@ if (PHP_VERSION_ID < 80100) {
 
 namespace Vendor;
 
-use Mabe\EnumCl\IntEnumPolyfill;
+use Mabe\Enum\Cl\IntEnumPolyfill;
 
 final class MyEnum extends IntEnumPolyfill
 {
@@ -47,7 +47,7 @@ final class MyEnum extends IntEnumPolyfill
 
 namespace Vendor;
 
-use Mabe\EnumCl\EnumBc;
+use Mabe\Enum\Cl\EnumBc;
 
 enum MyEnum:int
 {
@@ -76,7 +76,7 @@ The following will work on PHP<8.1 using the polyfill and on PHP>=8.1 using the 
 
 namespace Vendor;
 
-use function Mabe\EnumCl\enum_exists;
+use function Mabe\Enum\Cl\enum_exists;
 
 $zero = MyEnum::ZERO();
 $zero = MyEnum::from(0);
