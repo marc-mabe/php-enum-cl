@@ -140,14 +140,6 @@ abstract class UnitEnumPolyfill implements UnitEnum
 
             $cases = [];
             foreach ($caseConstants as $name => $value) {
-                /*
-                assert(
-                    (\is_subclass_of($enumClass, IntEnumPolyfill::class) && \is_int($value))
-                    || (\is_subclass_of($enumClass, StringEnumPolyfill::class) && \is_string($value))
-                    "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
-                );
-                */
-
                 assert(
                     \count(\array_keys($caseConstants, $value, true)) === 1,
                     "Enum case value for {$enumClass}::{$name} is ambiguous"
