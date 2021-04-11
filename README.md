@@ -1,7 +1,7 @@
 # Compatibility layer for emulating enumerations in PHP \< 8.1 and use native enumerations in PHP \>= 8.1
 
-[![Build Status](https://github.com/marc-mabe/php-enum-cl/workflows/Test/badge.svg?branch=master)](https://github.com/marc-mabe/php-enum-cl/actions?query=workflow%3ATest%20branch%3Amaster)
-[![Code Coverage](https://codecov.io/github/marc-mabe/php-enum-cl/coverage.svg?branch=master)](https://codecov.io/gh/marc-mabe/php-enum-cl/branch/master/)
+[![Build Status](https://github.com/marc-mabe/php-enum-cl/workflows/Test/badge.svg?branch=main)](https://github.com/marc-mabe/php-enum-cl/actions?query=workflow%3ATest%20branch%3Amain)
+[![Code Coverage](https://codecov.io/github/marc-mabe/php-enum-cl/coverage.svg?branch=main)](https://codecov.io/gh/marc-mabe/php-enum-cl/branch/main/)
 
 ## How-to create
 

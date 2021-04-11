@@ -11,7 +11,7 @@ use ReflectionException;
  * Backward compatibility trait for native enumerations.
  *
  * @copyright 2021, Marc Bennewitz
- * @license http://github.com/marc-mabe/php-enum-cl/blob/master/LICENSE.txt New BSD License
+ * @license http://github.com/marc-mabe/php-enum-cl/blob/main/LICENSE.txt New BSD License
  * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
  *
  * @psalm-immutable
