@@ -5,6 +5,16 @@ use function Mabe\Enum\Cl\enum_exists;
 
 class EnumExistsTest extends TestCase
 {
+    public function testUnitEnumNative()
+    {
+        if (PHP_VERSION_ID < 80100) {
+            $this->markTestSkipped('This test is for PHP >= 8.1 only');
+        }
+
+        eval('enum ' . __FUNCTION__ . ' {}');
+        static::assertTrue(enum_exists(__FUNCTION__));
+    }
+
     public function testIntEnumPolyfill()
     {
         if (PHP_VERSION_ID >= 80100) {

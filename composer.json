@@ -1,6 +1,6 @@
 {
     "name": "marc-mabe/enum-cl",
-    "description": "Compatibility layer for emulating enumerations in PHP < 8.1 and use native enumerations in PHP >= 8.1",
+    "description": "Compatibility layer for emulating enumerations in PHP < 8.1 and native enumerations in PHP >= 8.1",
     "type": "library",
     "keywords": [
         "enum", "enumeration", "enumerator", "case", "cases",
