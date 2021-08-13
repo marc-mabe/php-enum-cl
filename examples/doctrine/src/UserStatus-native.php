@@ -2,6 +2,8 @@
 
 namespace Example;
 
+use Mabe\Enum\Cl\EnumBc;
+
 /**
  * @method static UserStatus ACTIVE()
  * @method static UserStatus BANNED()
@@ -9,7 +11,7 @@ namespace Example;
  */
 enum UserStatus:string
 {
-    use Mabe\Enum\Cl\EnumBc;
+    use EnumBc;
 
     /** @internal */
     case ACTIVE = 'active';
