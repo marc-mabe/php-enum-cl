@@ -11,9 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 class UserEntity
 {
     /**
-     * @ORM\Column(name="rowid", type="string", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="rowid", type="string", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @var null|string
      */
     private $id = null;
@@ -38,7 +38,7 @@ class UserEntity
     
     public function getId(): string
     {
-        return $this->id;
+        return $this->id === null ? null : (string)$this->id;
     }
     
     public function getName(): string
