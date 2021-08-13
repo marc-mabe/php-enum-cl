@@ -33,7 +33,11 @@ jobs:
             CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
-            #COMPOSER_EXTRA_ARGS: --ignore-platform-reqs
+          - PHP_VERSION: '8.1.0beta2'
+            CODE_COVERAGE: 'true'
+            RUN_PHPSTAN: 'false'
+            RUN_PSALM: 'false'
+            COMPOSER_EXTRA_ARGS: --ignore-platform-reqs
 
     steps:
       - uses: actions/checkout@v2
