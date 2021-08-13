@@ -2,7 +2,7 @@
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\Configuration;
 
 use Example\DoctrineUserStatusType;
 use Example\UserEntity;
@@ -11,7 +11,10 @@ use Example\UserStatus;
 require __DIR__ . '/vendor/autoload.php';
 
 // initialize doctrine
-$config = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/src'], true, null, null, false);
+$config = new Configuration();
+$config->setProxyDir(sys_get_temp_dir());
+$config->setProxyNamespace('DoctrineProxies');
+$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__ . '/src'], true));
 $em = EntityManager::create(['driver' => 'pdo_sqlite', 'uri' => 'sqlite:///:memory:'], $config);
 $em->getConnection()->executeStatement('CREATE TABLE User (name TEXT NOT NULL, status TEXT NOT NULL)');
 
