@@ -14,7 +14,8 @@ require __DIR__ . '/vendor/autoload.php';
 $config = new Configuration();
 $config->setProxyDir(sys_get_temp_dir());
 $config->setProxyNamespace('DoctrineProxies');
-$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__ . '/src'], true));
+$config->setAutoGenerateProxyClasses(true);
+$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__ . '/src'], false));
 $em = EntityManager::create(['driver' => 'pdo_sqlite', 'uri' => 'sqlite:///:memory:'], $config);
 $em->getConnection()->executeStatement('CREATE TABLE User (name TEXT NOT NULL, status TEXT NOT NULL)');
 
