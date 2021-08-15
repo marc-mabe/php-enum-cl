@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
  
 if (PHP_VERSION_ID < 80100) {
-    require_once __DIR__ . '/BasicStringEnum-polyfill.php';
+    require_once __DIR__ . '/BasicStringEnum-emulated.php';
 } else {
     require_once __DIR__ . '/BasicStringEnum-native.php';
 }

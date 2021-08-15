@@ -9,6 +9,10 @@
         "homepage": "https://mabe.berlin/",
         "role":     "Lead"
     }],
+    "repositories": [{
+        "type": "path",
+        "url": "../.."
+    }],
     "license": "BSD-3-Clause",
     "require": {
         "php": "^7.1 | ^8.0",

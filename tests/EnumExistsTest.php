@@ -15,23 +15,23 @@ class EnumExistsTest extends TestCase
         static::assertTrue(enum_exists(__FUNCTION__));
     }
 
-    public function testIntEnumPolyfill()
+    public function testIntBackedEnumEmulated()
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
 
-        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\IntEnumPolyfill {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\IntBackedEnum {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
-    public function testStringEnumPolyfill()
+    public function testStringBackedEnumEmulated()
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
         
-        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\StringEnumPolyfill {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\StringBackedEnum {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
@@ -92,7 +92,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends Mabe\Enum\Cl\StringEnumPolyfill {}');
+                eval('final class ' . $class . ' extends Mabe\Enum\Cl\StringBackedEnum {}');
             }
         };
         

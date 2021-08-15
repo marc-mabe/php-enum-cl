@@ -3,10 +3,10 @@
 use PHPUnit\Framework\TestCase;
 
 if (PHP_VERSION_ID < 80100) {
-    require_once __DIR__ . '/AmbiguousBackingValuesEnumPolyfill.php';
+    require_once __DIR__ . '/AmbiguousBackingValuesEnumEmulated.php';
 }
 
-class AmbiguousBackingValuesEnumPolyfillTest extends TestCase
+class AmbiguousBackingValuesEnumEmulatedTest extends TestCase
 {
     public function setUp(): void
     {
@@ -18,14 +18,14 @@ class AmbiguousBackingValuesEnumPolyfillTest extends TestCase
     public function testAmbiguousBackingValuesForIntBackedEnum()
     {
         $this->expectException('AssertionError');
-        $this->expectExceptionMessage('Enum case value for AmbiguousIntValuesEnumPolyfill::TEST1 is ambiguous');
-        AmbiguousIntValuesEnumPolyfill::cases();
+        $this->expectExceptionMessage('Enum case value for AmbiguousIntValuesEnumEmulated::TEST1 is ambiguous');
+        AmbiguousIntValuesEnumEmulated::cases();
     }
 
     public function testAmbiguousBackingValuesEnumPolyfillForStringBackedEnum()
     {
         $this->expectException('AssertionError');
-        $this->expectExceptionMessage('Enum case value for AmbiguousStringValuesEnumPolyfill::TEST1 is ambiguous');
-        AmbiguousStringValuesEnumPolyfill::cases();
+        $this->expectExceptionMessage('Enum case value for AmbiguousStringValuesEnumEmulated::TEST1 is ambiguous');
+        AmbiguousStringValuesEnumEmulated::cases();
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Example;
 
-use Mabe\Enum\Cl\StringEnumPolyfill;
+use Mabe\Enum\Cl\StringBackedEnum;
 
 /**
  * @method static UserStatus ACTIVE()
  * @method static UserStatus BANNED()
  * @method static UserStatus DELETED()
  */
-final class UserStatus extends StringEnumPolyfill
+final class UserStatus extends StringBackedEnum
 {
     /** @internal */
     const ACTIVE = 'active';

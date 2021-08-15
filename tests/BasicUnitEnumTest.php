@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
  
 if (PHP_VERSION_ID < 80100) {
-    require_once __DIR__ . '/BasicUnitEnum-polyfill.php';
+    require_once __DIR__ . '/BasicUnitEnum-emulated.php';
 } else {
     require_once __DIR__ . '/BasicUnitEnum-native.php';
 }
@@ -57,7 +57,7 @@ class BasicUnitEnumTest extends TestCase
     {
         $this->expectException('BadMethodCallException');
         $this->expectExceptionMessage('BasicUnitEnum::ZeRo does not exist');
-        $case = BasicUnitEnum::ZeRo();
+        BasicUnitEnum::ZeRo();
     }
     
     public function testCallStaticUnknownCase()

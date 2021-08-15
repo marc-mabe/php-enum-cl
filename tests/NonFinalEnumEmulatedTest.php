@@ -3,10 +3,10 @@
 use PHPUnit\Framework\TestCase;
 
 if (PHP_VERSION_ID < 80100) {
-    require_once __DIR__ . '/NonFinalEnumPolyfill.php';
+    require_once __DIR__ . '/NonFinalEnumEmulated.php';
 }
 
-class NonFinalEnumPolyfillTest extends TestCase
+class NonFinalEnumEmulatedTest extends TestCase
 {
     public function setUp(): void
     {
@@ -18,7 +18,7 @@ class NonFinalEnumPolyfillTest extends TestCase
     public function testNonFinalAssertionError()
     {
         $this->expectException('AssertionError');
-        $this->expectExceptionMessage('Enum class "NonFinalEnumPolyfill" needs to be final');
-        NonFinalEnumPolyfill::TEST();
+        $this->expectExceptionMessage('Enum class "NonFinalEnumEmulated" needs to be final');
+        NonFinalEnumEmulated::TEST();
     }
 }

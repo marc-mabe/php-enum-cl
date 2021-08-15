@@ -18,14 +18,15 @@ if (PHP_VERSION_ID < 80100) {
 ```
 
 **Vendor\MyEnum-polyfill.php**
+
 ```php
 <?php declare(strict_types=1);
 
 namespace Vendor;
 
-use Mabe\Enum\Cl\IntEnumPolyfill;
+use Mabe\Enum\Cl\IntBackedEnum;
 
-final class MyEnum extends IntEnumPolyfill
+final class MyEnum extends IntBackedEnum
 {
     const ZERO = 0;
     const ONE = 1;
@@ -106,4 +107,3 @@ namespace Vendor;
 MyEnum::ZERO; // 1 on PHP<8.1
               // enum(MyEnum::ZERO) on PHP>=8.1
 ```
-

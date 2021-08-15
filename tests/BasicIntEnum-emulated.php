@@ -12,19 +12,19 @@
  * @method static self EIGHT()
  * @method static self NINE()
  */
-final class BasicUnitEnum extends Mabe\Enum\Cl\UnitEnumPolyfill
+final class BasicIntEnum extends Mabe\Enum\Cl\IntBackedEnum
 {
     /** @internal */
-    const ZERO = null;
+    const ZERO = 0;
     
     /** @internal */
-    const ONE = 'one';
+    const ONE = 1;
     
     /** @internal */
-    const TWO = 2.0;
+    const TWO = 2;
     
     /** @internal */
-    const THREE = [3];
+    const THREE = 3;
     
     /** @internal */
     const FOUR = 4;

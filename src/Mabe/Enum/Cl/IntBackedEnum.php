@@ -11,7 +11,7 @@ namespace Mabe\Enum\Cl;
  *
  * @psalm-immutable
  */
-abstract class IntEnumPolyfill extends BackedEnumPolyfill
+abstract class IntBackedEnum extends EmulatedBackedEnum
 {
     /**
     * The value of the current case
