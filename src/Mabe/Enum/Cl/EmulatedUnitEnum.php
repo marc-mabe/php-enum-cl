@@ -3,13 +3,12 @@
 namespace Mabe\Enum\Cl;
 
 use ArgumentCountError;
+use AssertionError;
 use BadMethodCallException;
 use LogicException;
 use ReflectionClass;
 use ReflectionClassConstant;
-use TypeError;
 use UnitEnum;
-use ValueError;
 
 /**
  * Abstract base class for emulated unit enumerations.
@@ -37,11 +36,9 @@ abstract class EmulatedUnitEnum implements UnitEnum
      */
     private static $cases = [];
 
-    /** @param int|string $value */
-    final private function __construct(string $name, $value)
+    final private function __construct(string $name)
     {
-        $this->name  = $name;
-        $this->value = $value;
+        $this->name = $name;
     }
 
     /**
@@ -149,12 +146,7 @@ abstract class EmulatedUnitEnum implements UnitEnum
 
             $cases = [];
             foreach ($caseConstants as $name => $value) {
-                assert(
-                    \count(\array_keys($caseConstants, $value, true)) === 1,
-                    "Enum case value for {$enumClass}::{$name} is ambiguous"
-                );
-
-                $cases[$name] = new $enumClass($name, $value);
+                $cases[$name] = new $enumClass($name);
             }
 
             self::$cases[$enumClass] = $cases;

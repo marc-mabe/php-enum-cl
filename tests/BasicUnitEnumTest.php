@@ -41,7 +41,31 @@ class BasicUnitEnumTest extends TestCase
             }, null));
         }
     }
-    
+
+    public function testUnitEnumDoesNotCareAboutValue()
+    {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
+        }
+
+        $class = __FUNCTION__;
+
+        eval(
+            'final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedUnitEnum {'
+            . ' const TEST1 = "test";'
+            . ' const TEST2 = "test";'
+            . '}'
+        );
+
+        $test1 = $class::TEST1();
+        $test2 = $class::TEST2();
+
+        static::assertNotSame($test1, $test2);
+        static::assertSame($test1, $class::TEST1());
+        static::assertSame($test2, $class::TEST2());
+        static::assertSame([$test1, $test2], $class::cases());
+    }
+
     /* BasicUnitEnum::__callStatic() */
 
     public function testCallStaticSuccess()

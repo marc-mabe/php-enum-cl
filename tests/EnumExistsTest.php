@@ -125,7 +125,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends Mabe\Enum\Cl\StringEnumPolyfill {}');
+                eval('final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedStringEnum {}');
             }
         };
         
