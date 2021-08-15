@@ -16,8 +16,9 @@
     }],
     "license": "BSD-3-Clause",
     "require": {
-        "php":            "^7.1 | ^8.0",
-        "ext-reflection": "*"
+        "php":                  "^7.1 | ^8.0",
+        "ext-reflection":       "*",
+        "composer-runtime-api": "^2.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.42",
