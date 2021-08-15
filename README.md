@@ -24,9 +24,9 @@ if (PHP_VERSION_ID < 80100) {
 
 namespace Vendor;
 
-use Mabe\Enum\Cl\IntBackedEnum;
+use Mabe\Enum\Cl\EmulatedIntEnum;
 
-final class MyEnum extends IntBackedEnum
+final class MyEnum extends EmulatedIntEnum
 {
     const ZERO = 0;
     const ONE = 1;

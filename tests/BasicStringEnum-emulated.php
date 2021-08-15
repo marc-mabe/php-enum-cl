@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-final class BasicStringEnum extends Mabe\Enum\Cl\StringBackedEnum
+final class BasicStringEnum extends Mabe\Enum\Cl\EmulatedStringEnum
 {
     const ZERO = '0';
     const ONE = '1';

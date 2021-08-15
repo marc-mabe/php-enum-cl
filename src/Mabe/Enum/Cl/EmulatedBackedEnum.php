@@ -129,13 +129,13 @@ abstract class EmulatedBackedEnum implements BackedEnum
         
         $name = \array_search($value, self::$caseConstants[static::class], true);
         if ($name === false) {
-            if (\is_subclass_of(static::class, IntBackedEnum::class)) {
+            if (\is_subclass_of(static::class, EmulatedIntEnum::class)) {
                 if (!\is_int($value)) {
                     throw new TypeError(static::class . '::from(): Argument #1 ($value) must be of type int, ' . \get_debug_type($value) . ' given');
                 }
 
                 throw new ValueError("{$value} is not a valid backing value for enum \"" . static::class . '"');
-            } elseif (\is_subclass_of(static::class, StringBackedEnum::class)) {
+            } elseif (\is_subclass_of(static::class, EmulatedStringEnum::class)) {
                 if (!\is_string($value)) {
                     throw new TypeError(static::class . '::from(): Argument #1 ($value) must be of type string, ' . \get_debug_type($value) . ' given');
                 }
@@ -214,8 +214,8 @@ abstract class EmulatedBackedEnum implements BackedEnum
             $cases = [];
             foreach ($caseConstants as $name => $value) {
                 assert(
-                    (\is_subclass_of($enumClass, IntBackedEnum::class) && \is_int($value))
-                    || (\is_subclass_of($enumClass, StringBackedEnum::class) && \is_string($value)),
+                    (\is_subclass_of($enumClass, EmulatedIntEnum::class) && \is_int($value))
+                    || (\is_subclass_of($enumClass, EmulatedStringEnum::class) && \is_string($value)),
                     "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
                 );
                 

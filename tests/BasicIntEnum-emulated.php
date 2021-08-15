@@ -12,7 +12,7 @@
  * @method static self EIGHT()
  * @method static self NINE()
  */
-final class BasicIntEnum extends Mabe\Enum\Cl\IntBackedEnum
+final class BasicIntEnum extends Mabe\Enum\Cl\EmulatedIntEnum
 {
     /** @internal */
     const ZERO = 0;

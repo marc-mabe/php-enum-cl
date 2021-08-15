@@ -3,7 +3,7 @@
 namespace Mabe\Enum\Cl;
 
 /**
- * Abstract base class for emulated string backed enumerations.
+ * Abstract base class for emulated integer backed enumerations.
  *
  * @copyright 2021, Marc Bennewitz
  * @license http://github.com/marc-mabe/php-enum-cl/blob/main/LICENSE.txt New BSD License
@@ -11,12 +11,12 @@ namespace Mabe\Enum\Cl;
  *
  * @psalm-immutable
  */
-abstract class StringBackedEnum extends EmulatedBackedEnum
+abstract class EmulatedIntEnum extends EmulatedBackedEnum
 {
     /**
     * The value of the current case
     *
-    * @var string
+    * @var int
     + @readonly
     */
     public $value;

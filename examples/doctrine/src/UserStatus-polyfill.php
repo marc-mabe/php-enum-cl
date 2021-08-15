@@ -2,14 +2,14 @@
 
 namespace Example;
 
-use Mabe\Enum\Cl\StringBackedEnum;
+use Mabe\Enum\Cl\EmulatedStringEnum;
 
 /**
  * @method static UserStatus ACTIVE()
  * @method static UserStatus BANNED()
  * @method static UserStatus DELETED()
  */
-final class UserStatus extends StringBackedEnum
+final class UserStatus extends EmulatedStringEnum
 {
     /** @internal */
     const ACTIVE = 'active';

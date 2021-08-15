@@ -4,10 +4,10 @@ use PHPUnit\Framework\TestCase;
 
 
 if (PHP_VERSION_ID < 80100) {
-    require_once __DIR__ . '/InvalidBackingTypeEnumEmulated.php';
+    require_once __DIR__ . '/InvalidEmulatedBackingTypeEnum.php';
 }
 
-class InvalidBackingTypeEnumEmulatedTest extends TestCase
+class InvalidEmulatedBackingTypeEnumTest extends TestCase
 {
     public function setUp(): void
     {
@@ -19,14 +19,14 @@ class InvalidBackingTypeEnumEmulatedTest extends TestCase
     public function testInvalidBackingTypeForIntBackedEnum()
     {
         $this->expectException('AssertionError');
-        $this->expectExceptionMessage('Enum case constant "InvalidIntTypeEnumEmulated::TEST" does not match enum backing type');
-        InvalidIntTypeEnumEmulated::TEST();
+        $this->expectExceptionMessage('Enum case constant "InvalidEmulatedIntEnum::TEST" does not match enum backing type');
+        InvalidEmulatedIntEnum::TEST();
     }
     
     public function testInvalidBackingTypeForStringBackedEnum()
     {
         $this->expectException('AssertionError');
-        $this->expectExceptionMessage('Enum case constant "InvalidStringTypeEnumEmulated::TEST" does not match enum backing type');
-        InvalidStringTypeEnumEmulated::TEST();
+        $this->expectExceptionMessage('Enum case constant "InvalidEmulatedStringEnum::TEST" does not match enum backing type');
+        InvalidEmulatedStringEnum::TEST();
     }
 }

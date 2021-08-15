@@ -15,7 +15,7 @@ class EnumExistsTest extends TestCase
         static::assertTrue(enum_exists(__FUNCTION__));
     }
 
-    public function testUnitEnumEmulated()
+    public function testEmulatedUnitEnum()
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -25,23 +25,23 @@ class EnumExistsTest extends TestCase
         static::assertTrue(enum_exists(__FUNCTION__));
     }
 
-    public function testIntBackedEnumEmulated()
+    public function testEmulatedIntEnum()
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
 
-        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\IntBackedEnum {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\EmulatedIntEnum {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
-    public function testStringBackedEnumEmulated()
+    public function testEmulatedStringEnum()
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
         
-        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\StringBackedEnum {}');
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\EmulatedStringEnum {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
     
@@ -102,7 +102,7 @@ class EnumExistsTest extends TestCase
         $classLoader = function (string $class) use ($enumClass, &$called) {
             if ($class === $enumClass) {
                 $called++;
-                eval('final class ' . $class . ' extends Mabe\Enum\Cl\StringBackedEnum {}');
+                eval('final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedStringEnum {}');
             }
         };
         
