@@ -8,8 +8,8 @@
  * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
  */
 interface UnitEnum {
-    //public string $name;
-    
+    //public readonly string $name;
+
     /**
      * @return static[]
      * @phpstan-return array<int, static>

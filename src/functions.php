@@ -70,9 +70,8 @@ namespace Mabe\Enum\Cl {
         }
 
         return \class_exists($enum, $autoload) && (
-            \is_a($enum, __NAMESPACE__ . '\\IntBackedEnum', true)
-            || \is_a($enum, __NAMESPACE__ . '\\StringBackedEnum', true)
+            \is_a($enum, __NAMESPACE__ . '\\EmulatedUnitEnum', true)
+            || \is_a($enum, __NAMESPACE__ . '\\EmulatedBackedEnum', true)
         );
     }
 }
-

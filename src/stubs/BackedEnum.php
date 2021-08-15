@@ -8,7 +8,7 @@
  * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
  */
 interface BackedEnum extends UnitEnum {
-    //public string|int $value;
+    //public readonly string|int $value;
 
     /**
      * @param string|int $value

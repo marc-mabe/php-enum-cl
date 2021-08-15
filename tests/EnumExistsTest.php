@@ -15,6 +15,16 @@ class EnumExistsTest extends TestCase
         static::assertTrue(enum_exists(__FUNCTION__));
     }
 
+    public function testUnitEnumEmulated()
+    {
+        if (PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('This test is for PHP < 8.1 only');
+        }
+
+        eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\EmulatedUnitEnum {}');
+        static::assertTrue(enum_exists(__FUNCTION__));
+    }
+
     public function testIntBackedEnumEmulated()
     {
         if (PHP_VERSION_ID >= 80100) {
