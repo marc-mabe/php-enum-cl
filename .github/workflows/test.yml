@@ -33,7 +33,7 @@ jobs:
             CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
-          - PHP_VERSION: '8.1.0beta2'
+          - PHP_VERSION: '8.1.0RC1'
             CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
