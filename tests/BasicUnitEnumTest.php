@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
- 
+
 if (PHP_VERSION_ID < 80100) {
     require_once __DIR__ . '/BasicUnitEnum-emulated.php';
 } else {
@@ -30,11 +30,11 @@ class BasicUnitEnumTest extends TestCase
         $cases = BasicUnitEnum::cases();
         static::assertIsArray($cases);
         static::assertSame(count($cases), count(self::NAMES));
-        
+
         foreach ($cases as $case) {
             static::assertInstanceOf(BasicUnitEnum::class, $case);
         }
-        
+
         foreach (self::NAMES as $name) {
             static::assertTrue(array_reduce($cases, function ($carry, $case) use ($name) {
                 return $case->name === $name ? true : $carry;
@@ -52,8 +52,8 @@ class BasicUnitEnumTest extends TestCase
 
         eval(
             'final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedUnitEnum {'
-            . ' const TEST1 = "test";'
-            . ' const TEST2 = "test";'
+            . ' private const TEST1 = "test";'
+            . ' private const TEST2 = "test";'
             . '}'
         );
 
@@ -83,21 +83,21 @@ class BasicUnitEnumTest extends TestCase
         $this->expectExceptionMessage('BasicUnitEnum::ZeRo does not exist');
         BasicUnitEnum::ZeRo();
     }
-    
+
     public function testCallStaticUnknownCase()
     {
         $this->expectException('BadMethodCallException');
         $this->expectExceptionMessage('BasicUnitEnum::UNKNOWN does not exist');
         BasicUnitEnum::UNKNOWN();
     }
-    
+
     public function testCallStaticUnexpectedArgs()
     {
         $this->expectException('ArgumentCountError');
         $this->expectExceptionMessage('BasicUnitEnum::ZERO() expects 0 arguments, 3 given');
         BasicUnitEnum::ZERO(1, 2, 3);
     }
-    
+
     /* BasicUnitEnum::__clone() */
 
     public function testCloneShouldFail()
@@ -107,12 +107,12 @@ class BasicUnitEnumTest extends TestCase
         }
 
         $case = BasicUnitEnum::ONE();
-        
+
         $this->expectException('LogicException');
         $this->expectExceptionMessage('Trying to clone an uncloneable object of class BasicUnitEnum');
         clone $case;
     }
-    
+
     /* un/serialize */
 
     public function testSerialize()

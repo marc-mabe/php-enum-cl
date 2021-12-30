@@ -3,6 +3,7 @@
 namespace Mabe\Enum\Cl;
 
 use ArgumentCountError;
+use AssertionError;
 use BackedEnum;
 use BadMethodCallException;
 use LogicException;
@@ -97,7 +98,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
      * @throws ArgumentCountError     On unexpected number of arguments
      * @throws BadMethodCallException On an invalid or unknown name
      * @throws AssertionError         On ambiguous case constant values or invalid case constant types
-     * 
+     *
      * @psalm-pure
      */
     final public static function __callStatic(string $name, array $args)
@@ -126,7 +127,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
     final public static function from($value): BackedEnum
     {
         self::init(static::class);
-        
+
         $name = \array_search($value, self::$caseConstants[static::class], true);
         if ($name === false) {
             if (\is_subclass_of(static::class, EmulatedIntEnum::class)) {
@@ -146,7 +147,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
 
         return self::$cases[static::class][$name];
     }
-    
+
     /**
      * @param int|string $value
      * @return null|static
@@ -202,10 +203,10 @@ abstract class EmulatedBackedEnum implements BackedEnum
             /** @var array<string, int|string> $caseConstants */
             $caseConstants = [];
             if (\PHP_VERSION_ID >= 80000) {
-                $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PUBLIC);
+                $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PRIVATE);
             } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
-                    if ($reflConstant->isPublic()) {
+                    if ($reflConstant->isPrivate()) {
                         $caseConstants[ $reflConstant->getName() ] = $reflConstant->getValue();
                     }
                 }
@@ -218,7 +219,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
                     || (\is_subclass_of($enumClass, EmulatedStringEnum::class) && \is_string($value)),
                     "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
                 );
-                
+
                 assert(
                     \count(\array_keys($caseConstants, $value, true)) === 1,
                     "Enum case value for {$enumClass}::{$name} is ambiguous"

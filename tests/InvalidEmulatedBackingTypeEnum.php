@@ -2,10 +2,10 @@
 
 final class InvalidEmulatedIntEnum extends Mabe\Enum\Cl\EmulatedIntEnum
 {
-    const TEST = 'test';
+    private const TEST = 'test';
 }
 
 final class InvalidEmulatedStringEnum extends Mabe\Enum\Cl\EmulatedStringEnum
 {
-    const TEST = 1;
+    private const TEST = 1;
 }

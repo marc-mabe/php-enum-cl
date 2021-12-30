@@ -14,33 +14,14 @@
  */
 final class BasicUnitEnum extends Mabe\Enum\Cl\EmulatedUnitEnum
 {
-    /** @internal */
-    const ZERO = null;
-    
-    /** @internal */
-    const ONE = 'one';
-    
-    /** @internal */
-    const TWO = 2.0;
-    
-    /** @internal */
-    const THREE = [3];
-    
-    /** @internal */
-    const FOUR = 4;
-    
-    /** @internal */
-    const FIVE = 5;
-    
-    /** @internal */
-    const SIX = 6;
-    
-    /** @internal */
-    const SEVEN = 7;
-    
-    /** @internal */
-    const EIGHT = 8;
-    
-    /** @internal */
-    const NINE = 9;
+    private const ZERO = null;
+    private const ONE = 'one';
+    private const TWO = 2.0;
+    private const THREE = [3];
+    private const FOUR = 4;
+    private const FIVE = 5;
+    private const SIX = 6;
+    private const SEVEN = 7;
+    private const EIGHT = 8;
+    private const NINE = 9;
 }

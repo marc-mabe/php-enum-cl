@@ -2,5 +2,5 @@
 
 class NonFinalEnumEmulated extends Mabe\Enum\Cl\EmulatedStringEnum
 {
-    const TEST = 'test';
+    private const TEST = 'test';
 }

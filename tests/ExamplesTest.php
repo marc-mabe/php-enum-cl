@@ -10,7 +10,7 @@ class ExamplesTest extends TestCase
 
         $ret = 0;
         $out = '';
-        exec("cd '{$exampleDir}' && composer install -o 2>&1", $out, $ret);
+        exec("cd '{$exampleDir}' && composer install --no-interaction -o 2>&1", $out, $ret);
         static::assertSame(0, $ret, implode("\n", $out));
 
         $ret = 0;

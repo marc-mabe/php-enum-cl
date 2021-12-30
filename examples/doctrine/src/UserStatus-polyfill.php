@@ -11,12 +11,7 @@ use Mabe\Enum\Cl\EmulatedStringEnum;
  */
 final class UserStatus extends EmulatedStringEnum
 {
-    /** @internal */
-    const ACTIVE = 'active';
-
-    /** @internal */
-    const BANNED = 'banned';
-
-    /** @internal */
-    const DELETED = 'deleted';
+    private const ACTIVE = 'active';
+    private const BANNED = 'banned';
+    private const DELETED = 'deleted';
 }

@@ -78,7 +78,7 @@ abstract class EmulatedUnitEnum implements UnitEnum
      * @throws ArgumentCountError     On unexpected number of arguments
      * @throws BadMethodCallException On an invalid or unknown name
      * @throws AssertionError         On ambiguous case constant values or invalid case constant types
-     * 
+     *
      * @psalm-pure
      */
     final public static function __callStatic(string $name, array $args)
@@ -135,10 +135,10 @@ abstract class EmulatedUnitEnum implements UnitEnum
             /** @var array<string, int|string> $caseConstants */
             $caseConstants = [];
             if (\PHP_VERSION_ID >= 80000) {
-                $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PUBLIC);
+                $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PRIVATE);
             } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
-                    if ($reflConstant->isPublic()) {
+                    if ($reflConstant->isPrivate()) {
                         $caseConstants[ $reflConstant->getName() ] = $reflConstant->getValue();
                     }
                 }

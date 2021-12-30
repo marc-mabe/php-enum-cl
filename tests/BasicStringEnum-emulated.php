@@ -2,14 +2,14 @@
 
 final class BasicStringEnum extends Mabe\Enum\Cl\EmulatedStringEnum
 {
-    const ZERO = '0';
-    const ONE = '1';
-    const TWO = '2';
-    const THREE = '3';
-    const FOUR = '4';
-    const FIVE = '5';
-    const SIX = '6';
-    const SEVEN = '7';
-    const EIGHT = '8';
-    const NINE = '9';
+    private const ZERO = '0';
+    private const ONE = '1';
+    private const TWO = '2';
+    private const THREE = '3';
+    private const FOUR = '4';
+    private const FIVE = '5';
+    private const SIX = '6';
+    private const SEVEN = '7';
+    private const EIGHT = '8';
+    private const NINE = '9';
 }
