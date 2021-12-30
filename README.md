@@ -14,7 +14,6 @@ if (PHP_VERSION_ID < 80100) {
 } else {
     require_once __DIR__ . '/MyEnum-native.php';
 }
-
 ```
 
 **Vendor\MyEnum-emulated.php**
@@ -64,7 +63,6 @@ enum MyEnum:int
     case EIGHT = 8;
     case NINE = 9;
 }
-
 ```
 
 ## How-to use
@@ -95,7 +93,6 @@ MyEnum::from(0) === MyEnum::tryFrom(0); // true
 
 enum_exists(MyEnum::class); // true
 enum_exists('stdClass');    // false
-
 ```
 
 **Warning:** The following will **not** behave the same on all PHP versions:
@@ -104,6 +101,9 @@ enum_exists('stdClass');    // false
 
 namespace Vendor;
 
-MyEnum::ZERO; // Error: Cannot access private const MyEnum::ZERO
-              // enum(MyEnum::ZERO) on PHP>=8.1
+MyEnum::ZERO; // PHP<8.1:  Error: Cannot access private const MyEnum::ZERO
+              // PHP>=8.1: enum(MyEnum::ZERO)
+
+serialize(MyEnum::ZERO()); // PHP<8.1:  Error: Trying to serialize a non serializable emulated enum case of MyEnum
+                           // PHP>=8.1: "E:11:"MyEnum:ZERO"
 ```
