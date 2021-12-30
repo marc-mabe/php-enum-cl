@@ -22,7 +22,7 @@ class AmbiguousBackingValuesEnumEmulatedTest extends TestCase
         AmbiguousIntValuesEnumEmulated::cases();
     }
 
-    public function testAmbiguousBackingValuesEnumPolyfillForStringBackedEnum()
+    public function testAmbiguousBackingValuesEnumEmulatedForStringBackedEnum()
     {
         $this->expectException('AssertionError');
         $this->expectExceptionMessage('Enum case value for AmbiguousStringValuesEnumEmulated::TEST1 is ambiguous');

@@ -10,14 +10,14 @@
 <?php declare(strict_types=1);
 
 if (PHP_VERSION_ID < 80100) {
-    require_once __DIR__ . '/MyEnum-polyfill.php';
+    require_once __DIR__ . '/MyEnum-emulated.php';
 } else {
     require_once __DIR__ . '/MyEnum-native.php';
 }
 
 ```
 
-**Vendor\MyEnum-polyfill.php**
+**Vendor\MyEnum-emulated.php**
 
 ```php
 <?php declare(strict_types=1);
@@ -69,7 +69,8 @@ enum MyEnum:int
 
 ## How-to use
 
-The following will work on PHP<8.1 using the polyfill and on PHP>=8.1 using the native version:
+The following will work the same on PHP<8.1 (using emulated enums)
+and on PHP>=8.1 (using native enums):
 
 ```php
 <?php declare(strict_types=1);
@@ -97,7 +98,7 @@ enum_exists('stdClass');    // false
 
 ```
 
-The following will **not** behave the same on all PHP versions:
+**Warning:** The following will **not** behave the same on all PHP versions:
 ```php
 <?php declare(strict_types=1);
 

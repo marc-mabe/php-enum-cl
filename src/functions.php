@@ -11,7 +11,7 @@ namespace {
     if (!function_exists('get_debug_type')) {
         /**
          * Polyfill for native get_debug_type function added in PHP 8.0.
-         * 
+         *
          * Returns the given type of a variable.
          *
          * This function differs from gettype in that it returns native type names,
@@ -58,10 +58,11 @@ namespace {
 namespace Mabe\Enum\Cl {
     /**
      * Checks if the given enumeration has been natively defined
-     * or for PHP < 8.1 it's a class emulating enumerations via Mabe\EnumCl\IntEnumPolyfill or Mabe\EnumCl\StringEnumPolyfill
+     * or for PHP < 8.1 it's a class emulating enumerations via Mabe\Enum\Cl\EmulatedIntEnum
+     * or Mabe\Enum\Cl\EmulatedStringEnum
      *
      * @param string $enum     The enum name. The name is matched in a case-insensitive manner.
-     * @param bool   $autoload Whether or not to call __autoload by default. 
+     * @param bool   $autoload Whether or not to call __autoload by default.
      */
     function enum_exists(string $enum, bool $autoload = true) : bool
     {

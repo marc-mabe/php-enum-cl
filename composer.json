@@ -5,7 +5,7 @@
     "keywords": [
         "enum", "enumeration", "enumerator", "case", "cases",
         "type", "typehint", "type-hint",
-        "polyfill", "compatibility"
+        "polyfill", "compatibility", "emulate", "emulated"
     ],
     "homepage": "https://github.com/marc-mabe/php-enum-cl",
     "authors": [{
