@@ -1,4 +1,4 @@
-# Compatibility layer for emulating enumerations in PHP \< 8.1 and use native enumerations in PHP \>= 8.1
+# Compatibility layer for emulating enumerations in PHP \< 8.1 but native enumerations in PHP \>= 8.1
 
 [![Build Status](https://github.com/marc-mabe/php-enum-cl/workflows/Test/badge.svg?branch=main)](https://github.com/marc-mabe/php-enum-cl/actions?query=workflow%3ATest%20branch%3Amain)
 [![Code Coverage](https://codecov.io/github/marc-mabe/php-enum-cl/coverage.svg?branch=main)](https://codecov.io/gh/marc-mabe/php-enum-cl/branch/main/)
@@ -65,6 +65,20 @@ enum MyEnum:int
 }
 ```
 
+| Enum type           | native                                                                                                                    | emulated                                                                                                                                      |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Unit enum           | <pre>enum ENUMNAME {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME;<br>    // ...<br>}</pre>                      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedUnitEnum {<br>    private const CASENAME = UNIQUEIDENTIFIER;<br>    // ...<br>}</pre> |
+| Integer backed enum | <pre>enum ENUMNAME:int {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = CASEVALUE;<br>    // ...<br>}</pre>      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedIntEnum {<br>    private const CASENAME = CASEVALUE;<br>    // ...<br>}</pre>         |
+| String backed enum  | <pre>enum ENUMNAME:string {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre> | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedStringEnum {<br>    private const CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre>    |
+
+For IDE and static code analyzers I recommend adding the following docblock:
+
+```php
+/**
+ * @method static ENUMNAME CASENAME()
+ */
+```
+
 ## How-to use
 
 The following will work the same on PHP<8.1 (using emulated enums)
@@ -107,3 +121,11 @@ MyEnum::ZERO; // PHP<8.1:  Error: Cannot access private const MyEnum::ZERO
 serialize(MyEnum::ZERO()); // PHP<8.1:  Error: Trying to serialize a non serializable emulated enum case of MyEnum
                            // PHP>=8.1: "E:11:"MyEnum:ZERO"
 ```
+
+## Additional Notes
+
+### Included Polyfills
+
+This library includes the following polyfills (if not already present):
+
+* `get_debug_type`
