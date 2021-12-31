@@ -25,7 +25,7 @@ class BasicUnitEnumTest extends TestCase
 
     /* BasicUnitEnum::cases() */
 
-    public function testCases()
+    public function testCases(): void
     {
         $cases = BasicUnitEnum::cases();
         static::assertIsArray($cases);
@@ -42,7 +42,7 @@ class BasicUnitEnumTest extends TestCase
         }
     }
 
-    public function testUnitEnumDoesNotCareAboutValue()
+    public function testUnitEnumDoesNotCareAboutValue(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -68,7 +68,7 @@ class BasicUnitEnumTest extends TestCase
 
     /* BasicUnitEnum::__callStatic() */
 
-    public function testCallStaticSuccess()
+    public function testCallStaticSuccess(): void
     {
         foreach (self::NAMES as $name) {
             $case = BasicUnitEnum::$name();
@@ -77,30 +77,36 @@ class BasicUnitEnumTest extends TestCase
         }
     }
 
-    public function testCallStaticSuccessCaseSensitive()
+    public function testCallStaticSuccessCaseSensitive(): void
     {
         $this->expectException('BadMethodCallException');
         $this->expectExceptionMessage('BasicUnitEnum::ZeRo does not exist');
+
+        /** @phpstan-ignore-next-line */
         BasicUnitEnum::ZeRo();
     }
 
-    public function testCallStaticUnknownCase()
+    public function testCallStaticUnknownCase(): void
     {
         $this->expectException('BadMethodCallException');
         $this->expectExceptionMessage('BasicUnitEnum::UNKNOWN does not exist');
+
+        /** @phpstan-ignore-next-line */
         BasicUnitEnum::UNKNOWN();
     }
 
-    public function testCallStaticUnexpectedArgs()
+    public function testCallStaticUnexpectedArgs(): void
     {
         $this->expectException('ArgumentCountError');
         $this->expectExceptionMessage('BasicUnitEnum::ZERO() expects 0 arguments, 3 given');
+
+        /** @phpstan-ignore-next-line */
         BasicUnitEnum::ZERO(1, 2, 3);
     }
 
     /* BasicUnitEnum::__clone() */
 
-    public function testCloneShouldFail()
+    public function testCloneShouldFail(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('Cloning native enum cases will fatal error');
@@ -115,7 +121,7 @@ class BasicUnitEnumTest extends TestCase
 
     /* un/serialize */
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $case = BasicUnitEnum::ONE();
 
@@ -128,7 +134,7 @@ class BasicUnitEnumTest extends TestCase
         }
     }
 
-    public function testUnserialize()
+    public function testUnserialize(): void
     {
         $case = BasicUnitEnum::ONE();
 

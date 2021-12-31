@@ -15,17 +15,17 @@ class AmbiguousBackingValuesEnumEmulatedTest extends TestCase
         }
     }
 
-    public function testAmbiguousBackingValuesForIntBackedEnum()
+    public function testAmbiguousBackingValuesForIntBackedEnum(): void
     {
         $this->expectException('AssertionError');
         $this->expectExceptionMessage('Enum case value for AmbiguousIntValuesEnumEmulated::TEST1 is ambiguous');
-        AmbiguousIntValuesEnumEmulated::cases();
+        $cases = AmbiguousIntValuesEnumEmulated::cases();
     }
 
-    public function testAmbiguousBackingValuesEnumEmulatedForStringBackedEnum()
+    public function testAmbiguousBackingValuesEnumEmulatedForStringBackedEnum(): void
     {
         $this->expectException('AssertionError');
         $this->expectExceptionMessage('Enum case value for AmbiguousStringValuesEnumEmulated::TEST1 is ambiguous');
-        AmbiguousStringValuesEnumEmulated::cases();
+        $cases = AmbiguousStringValuesEnumEmulated::cases();
     }
 }

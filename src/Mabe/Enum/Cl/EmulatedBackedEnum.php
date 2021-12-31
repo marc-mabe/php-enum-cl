@@ -93,13 +93,12 @@ abstract class EmulatedBackedEnum implements BackedEnum
     /**
      * Get an enumerator instance by the given name
      *
-     * @param string $name The name of the enumerator
+     * @param string $name  The name of the enumerator
+     * @param mixed[] $args Should be empty
      * @return static
      * @throws ArgumentCountError     On unexpected number of arguments
      * @throws BadMethodCallException On an invalid or unknown name
      * @throws AssertionError         On ambiguous case constant values or invalid case constant types
-     *
-     * @psalm-pure
      */
     final public static function __callStatic(string $name, array $args)
     {
@@ -111,6 +110,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
         self::init(static::class);
 
         if (isset(self::$cases[static::class][$name])) {
+            /** @phpstan-ignore-next-line */
             return self::$cases[static::class][$name];
         }
 
@@ -119,7 +119,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
 
     /**
      * @param int|string $value
-     * @return null|static
+     * @return static
      * @throws ValueError     If the given value is not defined in the enumeration
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
@@ -145,6 +145,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
             }
         }
 
+        /** @phpstan-ignore-next-line */
         return self::$cases[static::class][$name];
     }
 
@@ -172,12 +173,12 @@ abstract class EmulatedBackedEnum implements BackedEnum
     *
     * @phpstan-return array<int, static>
     * @psalm-return list<static>
-    * @psalm-pure
     */
     final public static function cases(): array
     {
         self::init(static::class);
 
+        /** @phpstan-ignore-next-line */
         return \array_values(self::$cases[static::class]);
     }
 
@@ -186,9 +187,8 @@ abstract class EmulatedBackedEnum implements BackedEnum
     *
     * @param class-string<static> $enumClass
     * @throws AssertionError On ambiguous case constant values or invalid case constant types
-    * @psalm-pure
     */
-    private static function init(string $enumClass)
+    private static function init(string $enumClass): void
     {
         if (!isset(self::$cases[$enumClass])) {
 
@@ -199,10 +199,10 @@ abstract class EmulatedBackedEnum implements BackedEnum
                 "Enum class \"{$enumClass}\" needs to be final"
             );
 
-            // Case constants must be public
-            /** @var array<string, int|string> $caseConstants */
+            // Case constants must be private
             $caseConstants = [];
             if (\PHP_VERSION_ID >= 80000) {
+                /** @phpstan-ignore-next-line */
                 $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PRIVATE);
             } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
@@ -225,9 +225,12 @@ abstract class EmulatedBackedEnum implements BackedEnum
                     "Enum case value for {$enumClass}::{$name} is ambiguous"
                 );
 
-                $cases[$name] = new $enumClass($name, $value);
+                /** @var static $case */
+                $case         = new $enumClass($name, $value);
+                $cases[$name] = $case;
             }
 
+            /** @var array<string, int|string> $caseConstants */
             self::$cases[$enumClass]         = $cases;
             self::$caseConstants[$enumClass] = $caseConstants;
         }

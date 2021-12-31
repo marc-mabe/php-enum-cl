@@ -33,7 +33,7 @@ jobs:
             CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
-          - PHP_VERSION: '8.1.0RC1'
+          - PHP_VERSION: '8.1'
             CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
@@ -91,7 +91,7 @@ jobs:
 
       - name: Run PHPStan
         if: ${{ matrix.RUN_PHPSTAN == 'true' }}
-        run: docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'memory_limit=2G' ./vendor/bin/phpstan analyse --level max src/ tests/
+        run: docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'memory_limit=2G' ./vendor/bin/phpstan analyse
 
       - name: Run psalm
         if: ${{ matrix.RUN_PSALM == 'true' }}

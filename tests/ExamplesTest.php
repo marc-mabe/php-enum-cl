@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class ExamplesTest extends TestCase
 {
-    public function testDoctrineExample()
+    public function testDoctrineExample(): void
     {
         $exampleDir = dirname(__DIR__) . '/examples/doctrine';
 

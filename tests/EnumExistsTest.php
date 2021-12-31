@@ -5,7 +5,7 @@ use function Mabe\Enum\Cl\enum_exists;
 
 class EnumExistsTest extends TestCase
 {
-    public function testUnitEnumNative()
+    public function testUnitEnumNative(): void
     {
         if (PHP_VERSION_ID < 80100) {
             $this->markTestSkipped('This test is for PHP >= 8.1 only');
@@ -15,7 +15,7 @@ class EnumExistsTest extends TestCase
         static::assertTrue(enum_exists(__FUNCTION__));
     }
 
-    public function testEmulatedUnitEnum()
+    public function testEmulatedUnitEnum(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -25,7 +25,7 @@ class EnumExistsTest extends TestCase
         static::assertTrue(enum_exists(__FUNCTION__));
     }
 
-    public function testEmulatedIntEnum()
+    public function testEmulatedIntEnum(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -34,23 +34,23 @@ class EnumExistsTest extends TestCase
         eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\EmulatedIntEnum {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
-    
-    public function testEmulatedStringEnum()
+
+    public function testEmulatedStringEnum(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
-        
+
         eval('final class ' . __FUNCTION__ . ' extends Mabe\Enum\Cl\EmulatedStringEnum {}');
         static::assertTrue(enum_exists(__FUNCTION__));
     }
-    
-    public function testInterfaceUnitEnum()
+
+    public function testInterfaceUnitEnum(): void
     {
         static::assertFalse(enum_exists('UnitEnum'));
     }
 
-    public function testOtherImplementsUnitEnum()
+    public function testOtherImplementsUnitEnum(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -64,12 +64,12 @@ class EnumExistsTest extends TestCase
         static::assertFalse(enum_exists(__FUNCTION__));
     }
 
-    public function testInterfaceBackedEnum()
+    public function testInterfaceBackedEnum(): void
     {
         static::assertFalse(enum_exists('BackedEnum'));
     }
-    
-    public function testOtherImplementsBackedEnum()
+
+    public function testOtherImplementsBackedEnum(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -85,13 +85,13 @@ class EnumExistsTest extends TestCase
 
         static::assertFalse(enum_exists(__FUNCTION__));
     }
-    
-    public function testNonEnumClass()
+
+    public function testNonEnumClass(): void
     {
         static::assertFalse(enum_exists('stdClass'));
     }
-    
-    public function testAutoloadTrue()
+
+    public function testAutoloadTrue(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -105,16 +105,16 @@ class EnumExistsTest extends TestCase
                 eval('final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedStringEnum {}');
             }
         };
-        
+
         spl_autoload_register($classLoader);
         $result = enum_exists(__FUNCTION__, true);
         spl_autoload_unregister($classLoader);
-        
+
         static::assertTrue($result);
         static::assertSame(1, $called);
     }
-    
-    public function testAutoloadFalse()
+
+    public function testAutoloadFalse(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('This test is for PHP < 8.1 only');
@@ -128,11 +128,11 @@ class EnumExistsTest extends TestCase
                 eval('final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedStringEnum {}');
             }
         };
-        
+
         spl_autoload_register($classLoader);
         $result = enum_exists(__FUNCTION__, false);
         spl_autoload_unregister($classLoader);
-        
+
         static::assertFalse($result);
         static::assertSame(0, $called);
     }

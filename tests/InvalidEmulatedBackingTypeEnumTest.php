@@ -16,14 +16,14 @@ class InvalidEmulatedBackingTypeEnumTest extends TestCase
         }
     }
 
-    public function testInvalidBackingTypeForIntBackedEnum()
+    public function testInvalidBackingTypeForIntBackedEnum(): void
     {
         $this->expectException('AssertionError');
         $this->expectExceptionMessage('Enum case constant "InvalidEmulatedIntEnum::TEST" does not match enum backing type');
         InvalidEmulatedIntEnum::TEST();
     }
-    
-    public function testInvalidBackingTypeForStringBackedEnum()
+
+    public function testInvalidBackingTypeForStringBackedEnum(): void
     {
         $this->expectException('AssertionError');
         $this->expectExceptionMessage('Enum case constant "InvalidEmulatedStringEnum::TEST" does not match enum backing type');

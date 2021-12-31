@@ -18,32 +18,32 @@ enum BasicUnitEnum
 
     /** @internal */
     case ZERO;
-    
+
     /** @internal */
     case ONE;
-    
+
     /** @internal */
     case TWO;
-    
+
     /** @internal */
     case THREE;
-    
+
     /** @internal */
     case FOUR;
-    
+
     /** @internal */
     case FIVE;
-    
+
     /** @internal */
     case SIX;
-    
+
     /** @internal */
     case SEVEN;
-    
+
     /** @internal */
     case EIGHT;
-    
+
     /** @internal */
     case NINE;
 }
-    
+

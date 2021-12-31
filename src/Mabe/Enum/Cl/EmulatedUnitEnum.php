@@ -32,7 +32,7 @@ abstract class EmulatedUnitEnum implements UnitEnum
     /**
      * A map of case names and instances by enumeration class
      *
-     * @var array<class-string<EmulatedBackedEnum>, array<string, EmulatedBackedEnum>>
+     * @var array<class-string<EmulatedUnitEnum>, array<string, EmulatedUnitEnum>>
      */
     private static $cases = [];
 
@@ -73,13 +73,12 @@ abstract class EmulatedUnitEnum implements UnitEnum
     /**
      * Get an enumerator instance by the given name
      *
-     * @param string $name The name of the enumerator
+     * @param string $name  The name of the enumerator
+     * @param mixed[] $args Should be empty
      * @return static
      * @throws ArgumentCountError     On unexpected number of arguments
      * @throws BadMethodCallException On an invalid or unknown name
      * @throws AssertionError         On ambiguous case constant values or invalid case constant types
-     *
-     * @psalm-pure
      */
     final public static function __callStatic(string $name, array $args)
     {
@@ -91,6 +90,7 @@ abstract class EmulatedUnitEnum implements UnitEnum
         self::init(static::class);
 
         if (isset(self::$cases[static::class][$name])) {
+            /** @phpstan-ignore-next-line */
             return self::$cases[static::class][$name];
         }
 
@@ -104,12 +104,12 @@ abstract class EmulatedUnitEnum implements UnitEnum
     *
     * @phpstan-return array<int, static>
     * @psalm-return list<static>
-    * @psalm-pure
     */
     final public static function cases(): array
     {
         self::init(static::class);
 
+        /** @phpstan-ignore-next-line */
         return \array_values(self::$cases[static::class]);
     }
 
@@ -118,9 +118,8 @@ abstract class EmulatedUnitEnum implements UnitEnum
     *
     * @param class-string<static> $enumClass
     * @throws AssertionError On ambiguous case constant values or invalid case constant types
-    * @psalm-pure
     */
-    private static function init(string $enumClass)
+    private static function init(string $enumClass): void
     {
         if (!isset(self::$cases[$enumClass])) {
 
@@ -131,10 +130,11 @@ abstract class EmulatedUnitEnum implements UnitEnum
                 "Enum class \"{$enumClass}\" needs to be final"
             );
 
-            // Case constants must be public
+            // Case constants must be private
             /** @var array<string, int|string> $caseConstants */
             $caseConstants = [];
             if (\PHP_VERSION_ID >= 80000) {
+                /** @phpstan-ignore-next-line */
                 $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PRIVATE);
             } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
@@ -145,7 +145,7 @@ abstract class EmulatedUnitEnum implements UnitEnum
             }
 
             $cases = [];
-            foreach ($caseConstants as $name => $value) {
+            foreach ($caseConstants as $name => $_) {
                 $cases[$name] = new $enumClass($name);
             }
 

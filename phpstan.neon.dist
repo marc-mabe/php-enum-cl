@@ -1,0 +1,13 @@
+parameters:
+    level: max
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - tests/*-native.php
+
+services:
+	-
+		class: Mabe\Enum\Cl\PHPStan\ConstantExtension
+		tags:
+			- phpstan.constants.alwaysUsedClassConstantsExtension

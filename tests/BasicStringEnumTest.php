@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
- 
+
 if (PHP_VERSION_ID < 80100) {
     require_once __DIR__ . '/BasicStringEnum-emulated.php';
 } else {
@@ -25,7 +25,7 @@ class BasicStringEnumTest extends TestCase
 
     /* BasicStringEnum::from() */
 
-    public function testFromSuccess()
+    public function testFromSuccess(): void
     {
         foreach (self::NAMES_TO_VALUES as $name => $value) {
             $enum = BasicStringEnum::from($value);
@@ -35,126 +35,143 @@ class BasicStringEnumTest extends TestCase
         }
     }
 
-    public function testFromInvalidValue()
+    public function testFromInvalidValue(): void
     {
         $this->expectException('ValueError');
         $this->expectExceptionMessage('"10" is not a valid backing value for enum "BasicStringEnum"');
         BasicStringEnum::from('10');
     }
 
-    public function testFromUnexpectedIntTypeError()
+    public function testFromUnexpectedIntTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, int given');
         BasicStringEnum::from(1);
     }
 
-    public function testFromUnexpectedNullTypeError()
+    public function testFromUnexpectedNullTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, null given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::from(null);
     }
 
-    public function testFromUnexpectedBoolTypeError()
+    public function testFromUnexpectedBoolTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, bool given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::from(true);
     }
 
-    public function testFromUnexpectedFloatTypeError()
+    public function testFromUnexpectedFloatTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, float given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::from(1.1);
     }
 
-    public function testFromUnexpectedObjTypeError()
+    public function testFromUnexpectedObjTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, stdClass given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::from(new stdClass);
     }
 
     /* BasicStringEnum::tryFrom() */
 
-    public function testTryFromSuccess()
+    public function testTryFromSuccess(): void
     {
         foreach (self::NAMES_TO_VALUES as $name => $value) {
+            /** @var BasicStringEnum $enum */
             $enum = BasicStringEnum::tryFrom($value);
             static::assertInstanceOf(BasicStringEnum::class, $enum);
             static::assertSame($value, $enum->value);
             static::assertSame($name, $enum->name);
         }
     }
-    
-    public function testTryFromInvalidValue()
+
+    public function testTryFromInvalidValue(): void
     {
         static::assertNull(BasicStringEnum::tryFrom('10'));
     }
 
-    public function testTryFromUnexpectedIntTypeError()
+    public function testTryFromUnexpectedIntTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, int given');
         BasicStringEnum::tryFrom(1);
     }
 
-    public function testTryFromUnexpectedNullTypeError()
+    public function testTryFromUnexpectedNullTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, null given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(null);
     }
 
-    public function testTryFromUnexpectedBoolTypeError()
+    public function testTryFromUnexpectedBoolTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, bool given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(true);
     }
 
-    public function testTryFromUnexpectedFloatTypeError()
+    public function testTryFromUnexpectedFloatTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, float given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(1.1);
     }
 
-    public function testTryFromUnexpectedObjTypeError()
+    public function testTryFromUnexpectedObjTypeError(): void
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, stdClass given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(new stdClass);
     }
 
     /* BasicStringEnum::cases() */
 
-    public function testCases()
+    public function testCases(): void
     {
         $cases = BasicStringEnum::cases();
         static::assertIsArray($cases);
         static::assertSame(count($cases), count(self::NAMES_TO_VALUES));
-        
+
         foreach ($cases as $case) {
             static::assertInstanceOf(BasicStringEnum::class, $case);
         }
-        
+
         foreach (self::NAMES_TO_VALUES as $expectedName => $expectedValue) {
             static::assertTrue(array_reduce($cases, function ($carry, $case) use ($expectedName) {
                 return $case->name === $expectedName ? true : $carry;
             }, null));
-            
+
             static::assertTrue(array_reduce($cases, function ($carry, $case) use ($expectedValue) {
                 return $case->value === $expectedValue ? true : $carry;
             }, null));
         }
     }
-    
+
     /* BasicStringEnum::__callStatic() */
 
-    public function testCallStaticSuccess()
+    public function testCallStaticSuccess(): void
     {
         foreach (self::NAMES_TO_VALUES as $name => $expectedValue) {
             $case = BasicStringEnum::$name();
@@ -163,37 +180,43 @@ class BasicStringEnumTest extends TestCase
         }
     }
 
-    public function testCallStaticSuccessCaseSensitive()
+    public function testCallStaticSuccessCaseSensitive(): void
     {
         $this->expectException('BadMethodCallException');
         $this->expectExceptionMessage('BasicStringEnum::ZeRo does not exist');
-        $case = BasicStringEnum::ZeRo();
+
+        /** @phpstan-ignore-next-line */
+        BasicStringEnum::ZeRo();
     }
-    
-    public function testCallStaticUnknownCase()
+
+    public function testCallStaticUnknownCase(): void
     {
         $this->expectException('BadMethodCallException');
         $this->expectExceptionMessage('BasicStringEnum::UNKNOWN does not exist');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::UNKNOWN();
     }
-    
-    public function testCallStaticUnexpectedArgs()
+
+    public function testCallStaticUnexpectedArgs(): void
     {
         $this->expectException('ArgumentCountError');
         $this->expectExceptionMessage('BasicStringEnum::ZERO() expects 0 arguments, 3 given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::ZERO(1, 2, 3);
     }
-    
+
     /* BasicStringEnum::__clone() */
 
-    public function testCloneShouldFail()
+    public function testCloneShouldFail(): void
     {
         if (PHP_VERSION_ID >= 80100) {
             $this->markTestSkipped('Cloning native enum cases will fatal error');
         }
 
         $case = BasicStringEnum::from('1');
-        
+
         $this->expectException('LogicException');
         $this->expectExceptionMessage('Trying to clone an uncloneable object of class BasicStringEnum');
         clone $case;
@@ -201,7 +224,7 @@ class BasicStringEnumTest extends TestCase
 
     /* un/serialize */
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $case = BasicStringEnum::ONE();
 
@@ -214,7 +237,7 @@ class BasicStringEnumTest extends TestCase
         }
     }
 
-    public function testUnserialize()
+    public function testUnserialize(): void
     {
         $case = BasicStringEnum::ONE();
 

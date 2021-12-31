@@ -15,7 +15,7 @@ class NonFinalEnumEmulatedTest extends TestCase
         }
     }
 
-    public function testNonFinalAssertionError()
+    public function testNonFinalAssertionError(): void
     {
         $this->expectException('AssertionError');
         $this->expectExceptionMessage('Enum class "NonFinalEnumEmulated" needs to be final');

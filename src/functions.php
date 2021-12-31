@@ -30,10 +30,29 @@ namespace {
                 case is_array($value): return 'array';
                 case is_int($value): return 'int';
                 case is_float($value): return 'float';
-                case is_object($value): break;
                 case $value instanceof __PHP_Incomplete_Class: return '__PHP_Incomplete_Class';
-                default:
-                    if (null === $type = @get_resource_type($value)) {
+                case is_object($value):
+                    $class = get_class($value);
+
+                    if (false === strpos($class, '@')) {
+                        return $class;
+                    }
+
+                    $parent = get_parent_class($class);
+                    if ($parent) {
+                        return $parent . '@anonymous';
+                    }
+
+                    $implements = class_implements($class);
+                    if ($implements) {
+                        return key($implements) . '@anonymous';
+                    }
+
+                    return 'class@anonymous';
+                case is_resource($value):
+                    /** @var string|null $type */
+                    $type = @get_resource_type($value);
+                    if (null === $type) {
                         return 'unknown';
                     }
 
@@ -44,13 +63,7 @@ namespace {
                     return "resource ($type)";
             }
 
-            $class = get_class($value);
-
-            if (false === strpos($class, '@')) {
-                return $class;
-            }
-
-            return (get_parent_class($class) ?: key(class_implements($class)) ?: 'class').'@anonymous';
+            return 'unknown';
         }
     }
 }
@@ -67,12 +80,13 @@ namespace Mabe\Enum\Cl {
     function enum_exists(string $enum, bool $autoload = true) : bool
     {
         if (\PHP_VERSION_ID >= 80100) {
+            /** @phpstan-ignore-next-line */
             return \enum_exists($enum, $autoload);
         }
 
         return \class_exists($enum, $autoload) && (
-            \is_a($enum, __NAMESPACE__ . '\\EmulatedUnitEnum', true)
-            || \is_a($enum, __NAMESPACE__ . '\\EmulatedBackedEnum', true)
+            \is_a($enum, EmulatedUnitEnum::class, true)
+            || \is_a($enum, EmulatedBackedEnum::class, true)
         );
     }
 }
