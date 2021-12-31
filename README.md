@@ -67,7 +67,7 @@ enum MyEnum:int
 
 | Enum type           | native                                                                                                                    | emulated                                                                                                                                      |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Unit enum           | <pre>enum ENUMNAME {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME;<br>    // ...<br>}</pre>                      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedUnitEnum {<br>    private const CASENAME = UNIQUEIDENTIFIER;<br>    // ...<br>}</pre> |
+| Unit enum           | <pre>enum ENUMNAME {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME;<br>    // ...<br>}</pre>                      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedUnitEnum {<br>    private const CASENAME = null;<br>    // ...<br>}</pre>             |
 | Integer backed enum | <pre>enum ENUMNAME:int {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = CASEVALUE;<br>    // ...<br>}</pre>      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedIntEnum {<br>    private const CASENAME = CASEVALUE;<br>    // ...<br>}</pre>         |
 | String backed enum  | <pre>enum ENUMNAME:string {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre> | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedStringEnum {<br>    private const CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre>    |
 
