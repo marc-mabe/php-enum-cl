@@ -54,7 +54,7 @@ class BasicIntEnumTest extends TestCase
     public function testFromUnexpectedNullTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicIntEnum::from(): Argument #1 ($value) must be of type int, null given');
+        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type int, null given');
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::from(null);
