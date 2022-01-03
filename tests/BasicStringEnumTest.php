@@ -157,7 +157,7 @@ class BasicStringEnumTest extends TestCase
         $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
 
         $this->expectException('TypeError');
-        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$class}, float given");
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, float given");
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(1.1);
