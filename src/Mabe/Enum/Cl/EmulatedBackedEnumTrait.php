@@ -205,39 +205,34 @@ trait EmulatedBackedEnumTrait
                 "Enum class \"{$enumClass}\" needs to be final"
             );
 
-            // Case constants must be private
             $caseConstants = [];
-            if (\PHP_VERSION_ID >= 80000) {
-                /** @phpstan-ignore-next-line */
-                $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PRIVATE);
-            } else {
-                foreach ($reflection->getReflectionConstants() as $reflConstant) {
-                    if ($reflConstant->isPrivate()) {
-                        $caseConstants[$reflConstant->getName()] = $reflConstant->getValue();
-                    }
+            $cases         = [];
+            foreach ($reflection->getReflectionConstants() as $reflConstant) {
+                // Case constants must be private
+                if ($reflConstant->isPrivate()) {
+                    $name  = $reflConstant->getName();
+                    $value = $reflConstant->getValue();
+
+                    assert(
+                        /** @phpstan-ignore-next-line */
+                        (\is_subclass_of($enumClass, EmulatedIntEnum::class) && \is_int($value))
+                        || (\is_subclass_of($enumClass, EmulatedStringEnum::class) && \is_string($value)), /** @phpstan-ignore-line */
+                        "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
+                    );
+
+                    assert(
+                        \count(\array_keys($caseConstants, $value, true)) === 0,
+                        "Enum case value for {$enumClass}::{$name} is ambiguous"
+                    );
+
+                    /** @var static $case */
+                    $case = new $enumClass($name, $value);
+
+                    $cases[$name]         = $case;
+                    $caseConstants[$name] = $value;
                 }
             }
 
-            $cases = [];
-            foreach ($caseConstants as $name => $value) {
-                assert(
-                    /** @phpstan-ignore-next-line */
-                    (\is_subclass_of($enumClass, EmulatedIntEnum::class) && \is_int($value))
-                    || (\is_subclass_of($enumClass, EmulatedStringEnum::class) && \is_string($value)), /** @phpstan-ignore-line */
-                    "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
-                );
-
-                assert(
-                    \count(\array_keys($caseConstants, $value, true)) === 1,
-                    "Enum case value for {$enumClass}::{$name} is ambiguous"
-                );
-
-                /** @var static $case */
-                $case         = new $enumClass($name, $value);
-                $cases[$name] = $case;
-            }
-
-            /** @var array<string, string|int> $caseConstants */
             self::$cases[$enumClass]         = $cases;
             self::$caseConstants[$enumClass] = $caseConstants;
         }
