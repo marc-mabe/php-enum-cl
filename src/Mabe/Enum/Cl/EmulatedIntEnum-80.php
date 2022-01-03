@@ -36,7 +36,7 @@ abstract class EmulatedIntEnum implements BackedEnum
      */
     final public static function from(string|int $value): static
     {
-        return static::_from($value);
+        return static::_from(static::class, $value);
     }
 
     /**
@@ -46,6 +46,6 @@ abstract class EmulatedIntEnum implements BackedEnum
      */
     final public static function tryFrom(int|string $value): ?static
     {
-        return static::_tryFrom($value);
+        return static::_tryFrom(static::class, $value);
     }
 }
