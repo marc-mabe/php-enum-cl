@@ -30,6 +30,7 @@ namespace {
                 case is_array($value): return 'array';
                 case is_int($value): return 'int';
                 case is_float($value): return 'float';
+                case $value instanceof __PHP_Incomplete_Class: return '__PHP_Incomplete_Class';
                 case is_object($value):
                     $class = get_class($value);
 
