@@ -26,8 +26,10 @@
         "vimeo/psalm": "^4.16.1"
     },
     "autoload": {
-        "psr-4": { "Mabe\\Enum\\Cl\\": "src/Mabe/Enum/Cl" },
-        "files": [ "src/functions.php" ],
-        "classmap": [ "src/stubs" ]
+        "psr-4": {
+            "Mabe\\Enum\\Cl\\": "src/Mabe/Enum/Cl",
+            "": "src/stubs"
+        },
+        "files": [ "src/functions.php" ]
     }
 }

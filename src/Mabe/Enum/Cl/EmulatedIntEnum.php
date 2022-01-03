@@ -1,23 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Mabe\Enum\Cl;
-
-/**
- * Abstract base class for emulated integer backed enumerations.
- *
- * @copyright 2022, Marc Bennewitz
- * @license http://github.com/marc-mabe/php-enum-cl/blob/main/LICENSE.txt New BSD License
- * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
- *
- * @psalm-immutable
- */
-abstract class EmulatedIntEnum extends EmulatedBackedEnum
-{
-    /**
-    * The value of the current case
-    *
-    * @var int
-    + @readonly
-    */
-    public $value;
+if (PHP_VERSION_ID < 80000) {
+    require_once __DIR__ . '/EmulatedIntEnum-74.php';
+} else {
+    require_once __DIR__ . '/EmulatedIntEnum-80.php';
 }

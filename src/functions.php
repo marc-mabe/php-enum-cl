@@ -85,7 +85,8 @@ namespace Mabe\Enum\Cl {
 
         return \class_exists($enum, $autoload) && (
             \is_a($enum, EmulatedUnitEnum::class, true)
-            || \is_a($enum, EmulatedBackedEnum::class, true)
+            || \is_a($enum, EmulatedStringEnum::class, true)
+            || \is_a($enum, EmulatedIntEnum::class, true)
         );
     }
 }

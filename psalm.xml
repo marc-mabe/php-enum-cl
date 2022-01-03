@@ -15,15 +15,19 @@
 
     <issueHandlers>
         <DocblockTypeContradiction errorLevel="suppress" />
+        <DuplicateClass errorLevel="suppress" />
         <MissingImmutableAnnotation errorLevel="suppress" />
         <MixedInferredReturnType errorLevel="suppress" />
         <MixedArgument errorLevel="suppress" />
         <MixedMethodCall errorLevel="suppress" />
         <MixedReturnStatement errorLevel="suppress" />
+        <MoreSpecificImplementedParamType errorLevel="suppress" />
         <NonInvariantDocblockPropertyType errorLevel="suppress" />
         <PossiblyInvalidArrayOffset errorLevel="suppress" />
+        <PossiblyInvalidPropertyAssignmentValue errorLevel="suppress" />
         <TooManyArguments errorLevel="suppress" />
         <UndefinedConstant errorLevel="suppress" />
         <UndefinedFunction errorLevel="suppress" />
+        <UnsafeInstantiation errorLevel="suppress" />
     </issueHandlers>
 </psalm>

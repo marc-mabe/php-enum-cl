@@ -13,7 +13,7 @@ use TypeError;
 use ValueError;
 
 /**
- * Abstract base class for emulated backed enumerations.
+ * Trait for emulated backed enumerations.
  *
  * @copyright 2022, Marc Bennewitz
  * @license http://github.com/marc-mabe/php-enum-cl/blob/main/LICENSE.txt New BSD License
@@ -22,7 +22,7 @@ use ValueError;
  *
  * @psalm-immutable
  */
-abstract class EmulatedBackedEnum implements BackedEnum
+trait EmulatedBackedEnumTrait
 {
     /**
      * The name of the current case
@@ -43,21 +43,23 @@ abstract class EmulatedBackedEnum implements BackedEnum
     /**
      * A map of case names and values by enumeration class
      *
-     * @var array<class-string<EmulatedBackedEnum>, array<string, int|string>>
+     * @var array<class-string<static>, array<string, int|string>>
      */
     private static $caseConstants = [];
 
     /**
      * A map of case names and instances by enumeration class
      *
-     * @var array<class-string<EmulatedBackedEnum>, array<string, EmulatedBackedEnum>>
+     * @var array<class-string<static>, array<string, static>>
      */
     private static $cases = [];
 
     /** @param int|string $value */
     final private function __construct(string $name, $value)
     {
-        $this->name  = $name;
+        $this->name = $name;
+
+        /** @phpstan-ignore-next-line */
         $this->value = $value;
     }
 
@@ -118,30 +120,33 @@ abstract class EmulatedBackedEnum implements BackedEnum
     }
 
     /**
+     * @param class-string<static> $enumClass
      * @param int|string $value
      * @return static
      * @throws ValueError     If the given value is not defined in the enumeration
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
      */
-    final public static function from($value): BackedEnum
+    private static function _from(string $enumClass, $value): BackedEnum
     {
-        self::init(static::class);
+        self::init($enumClass);
 
-        $name = \array_search($value, self::$caseConstants[static::class], true);
+        $name = \array_search($value, self::$caseConstants[$enumClass], true);
         if ($name === false) {
-            if (\is_subclass_of(static::class, EmulatedIntEnum::class)) {
+            /** @phpstan-ignore-next-line */
+            if (\is_subclass_of($enumClass, EmulatedIntEnum::class)) {
                 if (!\is_int($value)) {
-                    throw new TypeError(static::class . '::from(): Argument #1 ($value) must be of type int, ' . \get_debug_type($value) . ' given');
+                    throw new TypeError($enumClass . '::from(): Argument #1 ($value) must be of type int, ' . \get_debug_type($value) . ' given');
                 }
 
-                throw new ValueError("{$value} is not a valid backing value for enum \"" . static::class . '"');
-            } elseif (\is_subclass_of(static::class, EmulatedStringEnum::class)) {
+                throw new ValueError("{$value} is not a valid backing value for enum \"{$enumClass}\"");
+            /** @phpstan-ignore-next-line */
+            } elseif (\is_subclass_of($enumClass, EmulatedStringEnum::class)) {
                 if (!\is_string($value)) {
-                    throw new TypeError(static::class . '::from(): Argument #1 ($value) must be of type string, ' . \get_debug_type($value) . ' given');
+                    throw new TypeError($enumClass . '::from(): Argument #1 ($value) must be of type string, ' . \get_debug_type($value) . ' given');
                 }
 
-                throw new ValueError("\"{$value}\" is not a valid backing value for enum \"" . static::class . '"');
+                throw new ValueError("\"{$value}\" is not a valid backing value for enum \"{$enumClass}\"");
             }
         }
 
@@ -150,15 +155,16 @@ abstract class EmulatedBackedEnum implements BackedEnum
     }
 
     /**
+     * @param class-string<static> $enumClass
      * @param int|string $value
      * @return null|static
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
      */
-    final public static function tryFrom($value): ?BackedEnum
+    private static function _tryFrom(string $enumClass, $value): ?BackedEnum
     {
         try {
-            return static::from($value);
+            return self::_from($enumClass, $value);
         } catch (TypeError $e) {
             throw new TypeError(\str_replace('::from(', '::tryFrom(', $e->getMessage()));
         } catch (ValueError $e) {
@@ -167,13 +173,13 @@ abstract class EmulatedBackedEnum implements BackedEnum
     }
 
     /**
-    * Get a list of case instances
-    *
-    * @return static[]
-    *
-    * @phpstan-return array<int, static>
-    * @psalm-return list<static>
-    */
+     * Get a list of case instances
+     *
+     * @return static[]
+     *
+     * @phpstan-return array<int, static>
+     * @psalm-return list<static>
+     */
     final public static function cases(): array
     {
         self::init(static::class);
@@ -183,11 +189,11 @@ abstract class EmulatedBackedEnum implements BackedEnum
     }
 
     /**
-    * Get all available constants of the called class
-    *
-    * @param class-string<static> $enumClass
-    * @throws AssertionError On ambiguous case constant values or invalid case constant types
-    */
+     * Get all available constants of the called class
+     *
+     * @param class-string<static> $enumClass
+     * @throws AssertionError On ambiguous case constant values or invalid case constant types
+     */
     private static function init(string $enumClass): void
     {
         if (!isset(self::$cases[$enumClass])) {
@@ -207,7 +213,7 @@ abstract class EmulatedBackedEnum implements BackedEnum
             } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
                     if ($reflConstant->isPrivate()) {
-                        $caseConstants[ $reflConstant->getName() ] = $reflConstant->getValue();
+                        $caseConstants[$reflConstant->getName()] = $reflConstant->getValue();
                     }
                 }
             }
@@ -215,8 +221,9 @@ abstract class EmulatedBackedEnum implements BackedEnum
             $cases = [];
             foreach ($caseConstants as $name => $value) {
                 assert(
+                    /** @phpstan-ignore-next-line */
                     (\is_subclass_of($enumClass, EmulatedIntEnum::class) && \is_int($value))
-                    || (\is_subclass_of($enumClass, EmulatedStringEnum::class) && \is_string($value)),
+                    || (\is_subclass_of($enumClass, EmulatedStringEnum::class) && \is_string($value)), /** @phpstan-ignore-line */
                     "Enum case constant \"{$enumClass}::{$name}\" does not match enum backing type"
                 );
 

@@ -46,6 +46,8 @@ class BasicStringEnumTest extends TestCase
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, int given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::from(1);
     }
 
@@ -107,6 +109,8 @@ class BasicStringEnumTest extends TestCase
     {
         $this->expectException('TypeError');
         $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, int given');
+
+        /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(1);
     }
 

@@ -131,22 +131,19 @@ abstract class EmulatedUnitEnum implements UnitEnum
             );
 
             // Case constants must be private
-            /** @var array<string, int|string> $caseConstants */
-            $caseConstants = [];
+            $cases = [];
             if (\PHP_VERSION_ID >= 80000) {
                 /** @phpstan-ignore-next-line */
-                $caseConstants = $reflection->getConstants(ReflectionClassConstant::IS_PRIVATE);
+                foreach ($reflection->getConstants(ReflectionClassConstant::IS_PRIVATE) as $name => $_) {
+                    $cases[$name] = new $enumClass($name);
+                }
             } else {
                 foreach ($reflection->getReflectionConstants() as $reflConstant) {
                     if ($reflConstant->isPrivate()) {
-                        $caseConstants[ $reflConstant->getName() ] = $reflConstant->getValue();
+                        $name         = $reflConstant->getName();
+                        $cases[$name] = new $enumClass($name);
                     }
                 }
-            }
-
-            $cases = [];
-            foreach ($caseConstants as $name => $_) {
-                $cases[$name] = new $enumClass($name);
             }
 
             self::$cases[$enumClass] = $cases;

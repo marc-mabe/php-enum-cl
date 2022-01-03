@@ -90,11 +90,11 @@ jobs:
 
       - name: Run PHPStan
         if: ${{ matrix.RUN_PHPSTAN == 'true' }}
-        run: docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'memory_limit=2G' ./vendor/bin/phpstan analyse
+        run: docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'memory_limit=2G' ./vendor/bin/phpstan analyse --no-interaction
 
       - name: Run psalm
         if: ${{ matrix.RUN_PSALM == 'true' }}
-        run: mkdir -p "$HOME/.cache/psalm" && docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v "$HOME/.cache/psalm:/.cache/psalm" 'test:${{ matrix.PHP_VERSION }}' php ./vendor/bin/psalm
+        run: mkdir -p "$HOME/.cache/psalm" && docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" -v "$HOME/.cache/psalm:/.cache/psalm" 'test:${{ matrix.PHP_VERSION }}' php ./vendor/bin/psalm --no-cache
 
       - name: Export Docker Image
         if: steps.docker-cache-image.outputs.cache-hit != 'true'
