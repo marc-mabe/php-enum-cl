@@ -5,7 +5,7 @@ namespace Mabe\Enum\Cl;
 /**
  * Abstract base class for emulated string backed enumerations.
  *
- * @copyright 2021, Marc Bennewitz
+ * @copyright 2022, Marc Bennewitz
  * @license http://github.com/marc-mabe/php-enum-cl/blob/main/LICENSE.txt New BSD License
  * @link http://github.com/marc-mabe/php-enum-cl for the canonical source repository
  *
