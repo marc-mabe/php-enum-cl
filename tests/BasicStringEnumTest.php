@@ -63,7 +63,7 @@ class BasicStringEnumTest extends TestCase
     public function testFromUnexpectedBoolTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, bool given');
+        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type string, bool given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::from(true);
@@ -72,7 +72,7 @@ class BasicStringEnumTest extends TestCase
     public function testFromUnexpectedFloatTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, float given');
+        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type string, float given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::from(1.1);
@@ -81,7 +81,7 @@ class BasicStringEnumTest extends TestCase
     public function testFromUnexpectedObjTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::from(): Argument #1 ($value) must be of type string, stdClass given');
+        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type string, stdClass given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::from(new stdClass);
@@ -117,7 +117,7 @@ class BasicStringEnumTest extends TestCase
     public function testTryFromUnexpectedNullTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, null given');
+        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, null given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(null);
@@ -126,7 +126,7 @@ class BasicStringEnumTest extends TestCase
     public function testTryFromUnexpectedBoolTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, bool given');
+        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, bool given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(true);
@@ -135,7 +135,7 @@ class BasicStringEnumTest extends TestCase
     public function testTryFromUnexpectedFloatTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, float given');
+        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, float given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(1.1);
@@ -144,7 +144,7 @@ class BasicStringEnumTest extends TestCase
     public function testTryFromUnexpectedObjTypeError(): void
     {
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('BasicStringEnum::tryFrom(): Argument #1 ($value) must be of type string, stdClass given');
+        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, stdClass given');
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(new stdClass);
