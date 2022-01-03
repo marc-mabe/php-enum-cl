@@ -75,10 +75,13 @@ class EnumExistsTest extends TestCase
             $this->markTestSkipped('This test is for PHP < 8.1 only');
         }
 
+        $argType = PHP_VERSION_ID >= 80100 ? 'int|string' : '';
+        $retType = PHP_VERSION_ID >= 80100 ? 'static' : 'BackedEnum';
+
         eval(
             'final class ' . __FUNCTION__ . ' implements BackedEnum {'
-            . ' public static function from($value): BackedEnum {}'
-            . ' public static function tryFrom($value): ?BackedEnum {}'
+            . " public static function from({$argType} \$value): {$retType} {}"
+            . " public static function tryFrom({$argType} \$value): ?{$retType} {}"
             . ' public static function cases(): array {}'
             . '}'
         );
