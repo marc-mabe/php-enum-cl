@@ -129,8 +129,11 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedNullTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, null given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, null given");
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(null);
@@ -138,8 +141,11 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedBoolTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, bool given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, bool given");
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(true);
@@ -147,8 +153,11 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedFloatTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, float given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$class}, float given");
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(1.1);
@@ -156,8 +165,11 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedObjTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type string, stdClass given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, stdClass given");
 
         /** @phpstan-ignore-next-line */
         BasicStringEnum::tryFrom(new stdClass);
