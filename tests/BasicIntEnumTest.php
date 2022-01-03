@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Mabe\Enum\Cl\EmulatedIntEnum;
 use PHPUnit\Framework\TestCase;
 
 if (PHP_VERSION_ID < 80100) {
@@ -53,8 +54,12 @@ class BasicIntEnumTest extends TestCase
 
     public function testFromUnexpectedNullTypeError(): void
     {
+
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type int, null given');
+        $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, null given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::from(null);
@@ -62,8 +67,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testFromUnexpectedBoolTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type int, bool given');
+        $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, bool given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::from(true);
@@ -71,8 +79,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testFromUnexpectedFloatTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type int, float given');
+        $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, float given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::from(1.1);
@@ -80,8 +91,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testFromUnexpectedObjTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::from(): Argument #1 ($value) must be of type int, stdClass given');
+        $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, stdClass given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::from(new stdClass);
@@ -116,8 +130,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testTryFromUnexpectedNullTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type int, null given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, null given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::tryFrom(null);
@@ -125,8 +142,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testTryFromUnexpectedBoolTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type int, bool given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, bool given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::tryFrom(true);
@@ -134,8 +154,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testTryFromUnexpectedFloatTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type int, float given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, float given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::tryFrom(1.1);
@@ -143,8 +166,11 @@ class BasicIntEnumTest extends TestCase
 
     public function testTryFromUnexpectedObjTypeError(): void
     {
+        $class = PHP_VERSION_ID >= 80000 ? EmulatedIntEnum::class : BasicIntEnum::class;
+        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'int';
+
         $this->expectException('TypeError');
-        $this->expectExceptionMessage('::tryFrom(): Argument #1 ($value) must be of type int, stdClass given');
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, stdClass given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::tryFrom(new stdClass);
