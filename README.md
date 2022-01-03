@@ -124,6 +124,24 @@ serialize(MyEnum::ZERO()); // PHP<8.1:  Error: Trying to serialize a non seriali
 
 ## Additional Notes
 
+### PHPStan
+
+By default PHPStan will complain about unused private constants
+as it can't automatically detect the special use via reflection in this case.
+
+To avoid this you need to add the following to your `phpstan.neon[.dist]`:
+
+```
+services:
+    -
+        class: Mabe\Enum\Cl\PHPStan\ConstantExtension
+        tags:
+            - phpstan.constants.alwaysUsedClassConstantsExtension
+```
+
+For more information please read https://phpstan.org/developing-extensions/always-used-class-constants
+
+
 ### Included Polyfills
 
 This library includes the following polyfills (if not already present):
