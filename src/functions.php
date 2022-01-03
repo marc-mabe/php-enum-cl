@@ -30,7 +30,6 @@ namespace {
                 case is_array($value): return 'array';
                 case is_int($value): return 'int';
                 case is_float($value): return 'float';
-                case $value instanceof __PHP_Incomplete_Class: return '__PHP_Incomplete_Class';
                 case is_object($value):
                     $class = get_class($value);
 
@@ -49,7 +48,9 @@ namespace {
                     }
 
                     return 'class@anonymous';
-                case is_resource($value):
+                case $value instanceof __PHP_Incomplete_Class: return '__PHP_Incomplete_Class';
+                default:
+                    /** @var resource $value */
                     /** @var string|null $type */
                     $type = @get_resource_type($value);
                     if (null === $type) {
@@ -62,8 +63,6 @@ namespace {
 
                     return "resource ($type)";
             }
-
-            return 'unknown';
         }
     }
 }

@@ -17,6 +17,7 @@
         <DocblockTypeContradiction errorLevel="suppress" />
         <MissingImmutableAnnotation errorLevel="suppress" />
         <MixedInferredReturnType errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
         <MixedMethodCall errorLevel="suppress" />
         <MixedReturnStatement errorLevel="suppress" />
         <NonInvariantDocblockPropertyType errorLevel="suppress" />
