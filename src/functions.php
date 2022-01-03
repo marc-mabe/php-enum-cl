@@ -48,7 +48,6 @@ namespace {
                     }
 
                     return 'class@anonymous';
-                case $value instanceof __PHP_Incomplete_Class: return '__PHP_Incomplete_Class';
                 default:
                     /** @var resource $value */
                     /** @var string|null $type */

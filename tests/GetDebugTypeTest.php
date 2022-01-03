@@ -53,6 +53,15 @@ class GetDebugTypeTest extends TestCase
         static::assertSame('__PHP_Incomplete_Class', get_debug_type($obj));
     }
 
+    public function testIncompleteClassUnserialize(): void
+    {
+        $unserializeCallbackHandler = (string)ini_set('unserialize_callback_func', '');
+        $var = unserialize('O:8:"Foo\Buzz":0:{}');
+        ini_set('unserialize_callback_func', $unserializeCallbackHandler);
+
+        $this->assertSame('__PHP_Incomplete_Class', get_debug_type($var));
+    }
+
     public function testResourceStream(): void
     {
         /** @var resource $fp */
