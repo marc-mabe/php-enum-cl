@@ -44,7 +44,7 @@ abstract class EmulatedIntEnum implements BackedEnum
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
      */
-    final public static function tryFrom(int|string $value): ?static
+    final public static function tryFrom(string|int $value): ?static
     {
         return static::_tryFrom(static::class, $value);
     }

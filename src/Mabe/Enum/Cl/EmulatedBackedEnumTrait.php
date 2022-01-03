@@ -35,7 +35,7 @@ trait EmulatedBackedEnumTrait
     /**
      * The value of the current case
      *
-     * @var int|string
+     * @var string|int
      * @readonly
      */
     public $value;
@@ -43,7 +43,7 @@ trait EmulatedBackedEnumTrait
     /**
      * A map of case names and values by enumeration class
      *
-     * @var array<class-string<static>, array<string, int|string>>
+     * @var array<class-string<static>, array<string, string|int>>
      */
     private static $caseConstants = [];
 
@@ -54,7 +54,7 @@ trait EmulatedBackedEnumTrait
      */
     private static $cases = [];
 
-    /** @param int|string $value */
+    /** @param string|int $value */
     final private function __construct(string $name, $value)
     {
         $this->name = $name;
@@ -121,7 +121,7 @@ trait EmulatedBackedEnumTrait
 
     /**
      * @param class-string<static> $enumClass
-     * @param int|string $value
+     * @param string|int $value
      * @return static
      * @throws ValueError     If the given value is not defined in the enumeration
      * @throws TypeError      On argument type not matching enumeration type
@@ -156,7 +156,7 @@ trait EmulatedBackedEnumTrait
 
     /**
      * @param class-string<static> $enumClass
-     * @param int|string $value
+     * @param string|int $value
      * @return null|static
      * @throws TypeError      On argument type not matching enumeration type
      * @throws AssertionError On ambiguous case constant values or invalid case constant types
@@ -237,7 +237,7 @@ trait EmulatedBackedEnumTrait
                 $cases[$name] = $case;
             }
 
-            /** @var array<string, int|string> $caseConstants */
+            /** @var array<string, string|int> $caseConstants */
             self::$cases[$enumClass]         = $cases;
             self::$caseConstants[$enumClass] = $caseConstants;
         }

@@ -54,8 +54,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testFromUnexpectedNullTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, null given");
@@ -66,8 +71,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testFromUnexpectedBoolTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, bool given");
@@ -78,8 +88,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testFromUnexpectedFloatTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, float given");
@@ -90,8 +105,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testFromUnexpectedObjTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, stdClass given");
@@ -129,8 +149,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedNullTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, null given");
@@ -141,8 +166,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedBoolTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, bool given");
@@ -153,8 +183,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedFloatTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, float given");
@@ -165,8 +200,13 @@ class BasicStringEnumTest extends TestCase
 
     public function testTryFromUnexpectedObjTypeError(): void
     {
-        $class = PHP_VERSION_ID >= 80000 ? EmulatedStringEnum::class : BasicStringEnum::class;
-        $type  = PHP_VERSION_ID >= 80000 ? 'string|int' : 'string';
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
+            $class = EmulatedStringEnum::class;
+            $type  = 'string|int';
+        } else {
+            $class = BasicStringEnum::class;
+            $type  = 'string';
+        }
 
         $this->expectException('TypeError');
         $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, stdClass given");
