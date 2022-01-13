@@ -25,6 +25,7 @@
         <NonInvariantDocblockPropertyType errorLevel="suppress" />
         <PossiblyInvalidArrayOffset errorLevel="suppress" />
         <PossiblyInvalidPropertyAssignmentValue errorLevel="suppress" />
+        <PropertyTypeCoercion errorLevel="suppress" />
         <TooManyArguments errorLevel="suppress" />
         <UndefinedConstant errorLevel="suppress" />
         <UndefinedFunction errorLevel="suppress" />
