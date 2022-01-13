@@ -5,7 +5,7 @@ parameters:
         - tests
     excludePaths:
         - tests/*-native.php
-        - src/*-80.php
+        - src/php80/*
 
 services:
     -
