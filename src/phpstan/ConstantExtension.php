@@ -2,7 +2,6 @@
 
 namespace Mabe\Enum\Cl\PHPStan;
 
-use Mabe\Enum\Cl\EmulatedBackedEnum;
 use Mabe\Enum\Cl\EmulatedIntEnum;
 use Mabe\Enum\Cl\EmulatedStringEnum;
 use Mabe\Enum\Cl\EmulatedUnitEnum;

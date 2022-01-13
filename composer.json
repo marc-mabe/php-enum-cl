@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mabe\\Enum\\Cl\\": "src/Mabe/Enum/Cl",
+            "Mabe\\Enum\\Cl\\": "src/psr-4",
             "": "src/stubs"
         },
         "files": [ "src/functions.php" ]

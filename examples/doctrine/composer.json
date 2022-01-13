@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.1 | ^8.0",
         "marc-mabe/enum-cl": "@dev",
-        "doctrine/orm": "^2.7"
+        "doctrine/orm": "2.7.5"
     },
     "autoload": {
         "psr-4": { "Example\\": "src" }
