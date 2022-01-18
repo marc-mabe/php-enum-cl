@@ -38,7 +38,7 @@ class UserEntity
 
     public function getId(): ?string
     {
-        return $this->id;
+        return $this->id === null ? null : (string)$this->id;
     }
 
     public function getName(): string
