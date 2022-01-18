@@ -75,7 +75,7 @@ For IDE and static code analyzers I recommend adding the following docblock:
 
 ```php
 /**
- * @method static ENUMNAME CASENAME()
+ * @method static self CASENAME()
  */
 ```
 

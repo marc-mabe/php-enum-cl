@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
 /**
- * @method static AmbiguousStringValuesEnumEmulated TEST1()
- * @method static AmbiguousStringValuesEnumEmulated TEST2()
+ * @method static self TEST1()
+ * @method static self TEST2()
  */
 final class AmbiguousStringValuesEnumEmulated extends Mabe\Enum\Cl\EmulatedStringEnum
 {
@@ -11,8 +11,8 @@ final class AmbiguousStringValuesEnumEmulated extends Mabe\Enum\Cl\EmulatedStrin
 }
 
 /**
- * @method static AmbiguousIntValuesEnumEmulated TEST1()
- * @method static AmbiguousIntValuesEnumEmulated TEST2()
+ * @method static self TEST1()
+ * @method static self TEST2()
  */
 final class AmbiguousIntValuesEnumEmulated extends Mabe\Enum\Cl\EmulatedIntEnum
 {

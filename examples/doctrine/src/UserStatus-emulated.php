@@ -5,9 +5,9 @@ namespace Example;
 use Mabe\Enum\Cl\EmulatedStringEnum;
 
 /**
- * @method static UserStatus ACTIVE()
- * @method static UserStatus BANNED()
- * @method static UserStatus DELETED()
+ * @method static self ACTIVE()
+ * @method static self BANNED()
+ * @method static self DELETED()
  */
 final class UserStatus extends EmulatedStringEnum
 {
