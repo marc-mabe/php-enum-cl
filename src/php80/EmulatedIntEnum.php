@@ -23,10 +23,9 @@ abstract class EmulatedIntEnum implements BackedEnum
     /**
      * The value of the current case
      *
-     * @var int
      * @readonly
      */
-    public $value;
+    public int $value;
 
     /**
      * @param int $value
