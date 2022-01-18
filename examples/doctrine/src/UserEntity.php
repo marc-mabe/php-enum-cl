@@ -23,7 +23,7 @@ class UserEntity
      * @var string
      */
     private $name;
-    
+
     /**
      * @ORM\Column(name="status", type="UserStatus", nullable=false)
      * @var UserStatus
@@ -35,27 +35,27 @@ class UserEntity
         $this->name   = $name;
         $this->status = UserStatus::ACTIVE();
     }
-    
-    public function getId(): string
+
+    public function getId(): ?string
     {
-        return $this->id === null ? null : (string)$this->id;
+        return $this->id;
     }
-    
+
     public function getName(): string
     {
         return $this->name;
     }
-    
+
     public function setName(string $name)
     {
         $this->name = $name;
     }
-    
+
     public function getStatus(): UserStatus
     {
         return $this->status;
     }
-    
+
     public function setStatus(UserStatus $status)
     {
         $this->status = $status;
