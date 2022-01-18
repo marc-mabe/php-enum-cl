@@ -116,7 +116,7 @@ trait EmulatedBackedEnumTrait
             return self::$cases[static::class][$name];
         }
 
-        throw new BadMethodCallException(static::class . "::{$name} does not exist");
+        throw new BadMethodCallException(static::class . "::{$name} does not exist or is not marked as protected");
     }
 
     /**
@@ -208,8 +208,8 @@ trait EmulatedBackedEnumTrait
             $caseConstants = [];
             $cases         = [];
             foreach ($reflection->getReflectionConstants() as $reflConstant) {
-                // Case constants must be private
-                if ($reflConstant->isPrivate()) {
+                // Case constants must be protected
+                if ($reflConstant->isProtected()) {
                     $name  = $reflConstant->getName();
                     $value = $reflConstant->getValue();
 

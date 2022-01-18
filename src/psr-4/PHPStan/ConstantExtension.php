@@ -12,7 +12,7 @@ class ConstantExtension implements AlwaysUsedClassConstantsExtension
 {
     public function isAlwaysUsed(ConstantReflection $constant): bool
     {
-        return $constant->isPrivate()
+        return (!$constant->isPrivate() && !$constant->isPublic())
             && ($parentClass = $constant->getDeclaringClass()->getParentClass())
             && (
                 $parentClass->getName() === EmulatedUnitEnum::class

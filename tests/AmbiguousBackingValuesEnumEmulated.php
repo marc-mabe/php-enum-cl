@@ -6,8 +6,8 @@
  */
 final class AmbiguousStringValuesEnumEmulated extends Mabe\Enum\Cl\EmulatedStringEnum
 {
-    private const TEST1 = 'test';
-    private const TEST2 = 'test';
+    protected const TEST1 = 'test';
+    protected const TEST2 = 'test';
 }
 
 /**
@@ -16,6 +16,6 @@ final class AmbiguousStringValuesEnumEmulated extends Mabe\Enum\Cl\EmulatedStrin
  */
 final class AmbiguousIntValuesEnumEmulated extends Mabe\Enum\Cl\EmulatedIntEnum
 {
-    private const TEST1 = 1;
-    private const TEST2 = 1;
+    protected const TEST1 = 1;
+    protected const TEST2 = 1;
 }

@@ -5,7 +5,7 @@
  */
 final class InvalidEmulatedIntEnum extends Mabe\Enum\Cl\EmulatedIntEnum
 {
-    private const TEST = 'test';
+    protected const TEST = 'test';
 }
 
 /**
@@ -13,5 +13,5 @@ final class InvalidEmulatedIntEnum extends Mabe\Enum\Cl\EmulatedIntEnum
  */
 final class InvalidEmulatedStringEnum extends Mabe\Enum\Cl\EmulatedStringEnum
 {
-    private const TEST = 1;
+    protected const TEST = 1;
 }

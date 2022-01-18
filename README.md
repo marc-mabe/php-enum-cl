@@ -27,16 +27,16 @@ use Mabe\Enum\Cl\EmulatedIntEnum;
 
 final class MyEnum extends EmulatedIntEnum
 {
-    private const ZERO = 0;
-    private const ONE = 1;
-    private const TWO = 2;
-    private const THREE = 3;
-    private const FOUR = 4;
-    private const FIVE = 5;
-    private const SIX = 6;
-    private const SEVEN = 7;
-    private const EIGHT = 8;
-    private const NINE = 9;
+    protected const ZERO = 0;
+    protected const ONE = 1;
+    protected const TWO = 2;
+    protected const THREE = 3;
+    protected const FOUR = 4;
+    protected const FIVE = 5;
+    protected const SIX = 6;
+    protected const SEVEN = 7;
+    protected const EIGHT = 8;
+    protected const NINE = 9;
 }
 ```
 
@@ -67,9 +67,9 @@ enum MyEnum:int
 
 | Enum type           | native                                                                                                                    | emulated                                                                                                                                      |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Unit enum           | <pre>enum ENUMNAME {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME;<br>    // ...<br>}</pre>                      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedUnitEnum {<br>    private const CASENAME = null;<br>    // ...<br>}</pre>             |
-| Integer backed enum | <pre>enum ENUMNAME:int {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = CASEVALUE;<br>    // ...<br>}</pre>      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedIntEnum {<br>    private const CASENAME = CASEVALUE;<br>    // ...<br>}</pre>         |
-| String backed enum  | <pre>enum ENUMNAME:string {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre> | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedStringEnum {<br>    private const CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre>    |
+| Unit enum           | <pre>enum ENUMNAME {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME;<br>    // ...<br>}</pre>                      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedUnitEnum {<br>    protected const CASENAME = null;<br>    // ...<br>}</pre>             |
+| Integer backed enum | <pre>enum ENUMNAME:int {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = CASEVALUE;<br>    // ...<br>}</pre>      | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedIntEnum {<br>    protected const CASENAME = CASEVALUE;<br>    // ...<br>}</pre>         |
+| String backed enum  | <pre>enum ENUMNAME:string {<br>    use \Mabe\Enum\Cl\EnumBc;<br>    case CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre> | <pre>final class ENUMNAME extends \Mabe\Enum\Cl\EmulatedStringEnum {<br>    protected const CASENAME = 'CASEVALUE';<br>    // ...<br>}</pre>    |
 
 For IDE and static code analyzers I recommend adding the following docblock:
 
@@ -115,7 +115,7 @@ enum_exists('stdClass');    // false
 
 namespace Vendor;
 
-MyEnum::ZERO; // PHP<8.1:  Error: Cannot access private const MyEnum::ZERO
+MyEnum::ZERO; // PHP<8.1:  Error: Cannot access protected const MyEnum::ZERO
               // PHP>=8.1: enum(MyEnum::ZERO)
 
 serialize(MyEnum::ZERO()); // PHP<8.1:  Error: Trying to serialize a non serializable emulated enum case of MyEnum
@@ -126,7 +126,7 @@ serialize(MyEnum::ZERO()); // PHP<8.1:  Error: Trying to serialize a non seriali
 
 ### PHPStan
 
-By default PHPStan will complain about unused private constants
+By default PHPStan will complain about unused constants
 as it can't automatically detect the special use via reflection in this case.
 
 To avoid this you need to add the following to your `phpstan.neon[.dist]`:

@@ -52,8 +52,8 @@ class BasicUnitEnumTest extends TestCase
 
         eval(
             'final class ' . $class . ' extends Mabe\Enum\Cl\EmulatedUnitEnum {'
-            . ' private const TEST1 = "test";'
-            . ' private const TEST2 = "test";'
+            . ' protected const TEST1 = "test";'
+            . ' protected const TEST2 = "test";'
             . '}'
         );
 
