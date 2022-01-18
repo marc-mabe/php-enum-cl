@@ -20,9 +20,10 @@ abstract class EmulatedStringEnum implements BackedEnum
     /**
     * The value of the current case
     *
+    * @var string
     * @readonly
     */
-    public string $value;
+    public $value;
 
     /**
      * @param string $value
