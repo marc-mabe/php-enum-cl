@@ -39,11 +39,11 @@ jobs:
             RUN_PSALM: 'false'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
       - name: Cache Docker Image
         id: docker-cache-image
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: /tmp/docker-cache-image.tar
           key: docker-cache-image:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
@@ -57,7 +57,7 @@ jobs:
         run: docker build -f .github/workflows/test.Dockerfile -t 'test:${{ matrix.PHP_VERSION }}' --build-arg 'PHP_VERSION=${{ matrix.PHP_VERSION }}' --build-arg 'CODE_COVERAGE=${{ matrix.CODE_COVERAGE }}' .
 
       - name: Cache Composer Cache Dir
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: /tmp/composer-cache-dir
           key: composer-cache-dir:${{ matrix.PHP_VERSION }}
