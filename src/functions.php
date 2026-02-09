@@ -79,7 +79,6 @@ namespace Mabe\Enum\Cl {
     function enum_exists(string $enum, bool $autoload = true) : bool
     {
         if (\PHP_VERSION_ID >= 80100) {
-            /** @phpstan-ignore-next-line */
             return \enum_exists($enum, $autoload);
         }
 

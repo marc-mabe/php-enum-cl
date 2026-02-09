@@ -8,14 +8,3 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_HTACCESS_PROTECT=0
 ENV COMPOSER_CACHE_DIR=/.composer-cache-dir
-
-# install PHP extension pcov
-ARG CODE_COVERAGE
-RUN if [[ "${CODE_COVERAGE}" == "true" ]] ; then \
-    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
-    && mkdir -p /usr/src/php/ext/pcov && curl -fsSL https://pecl.php.net/get/pcov | tar xvz -C /usr/src/php/ext/pcov --strip 1 \
-    && docker-php-ext-install pcov \
-    && docker-php-ext-enable pcov \
-    && rm -Rf /usr/src/php/ext/pcov \
-    && apk del --no-cache .build-deps \
-    ; fi
