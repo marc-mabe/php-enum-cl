@@ -14,27 +14,21 @@ jobs:
       matrix:
         include:
           - PHP_VERSION: '7.1'
-            CODE_COVERAGE: 'false'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
           - PHP_VERSION: '7.2'
-            CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
           - PHP_VERSION: '7.3'
-            CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
           - PHP_VERSION: '7.4'
-            CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'true'
             RUN_PSALM: 'true'
           - PHP_VERSION: '8.0'
-            CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'true'
             RUN_PSALM: 'true'
           - PHP_VERSION: '8.1'
-            CODE_COVERAGE: 'true'
             RUN_PHPSTAN: 'false'
             RUN_PSALM: 'false'
 
@@ -46,7 +40,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: /tmp/docker-cache-image.tar
-          key: docker-cache-image:${{ matrix.PHP_VERSION }}:${{ matrix.CODE_COVERAGE }}
+          key: docker-cache-image:${{ matrix.PHP_VERSION }}
 
       - name: Load Docker Image
         if: steps.docker-cache-image.outputs.cache-hit == 'true'
@@ -54,7 +48,7 @@ jobs:
 
       - name: Build Docker Image
         if: steps.docker-cache-image.outputs.cache-hit != 'true'
-        run: docker build -f .github/workflows/test.Dockerfile -t 'test:${{ matrix.PHP_VERSION }}' --build-arg 'PHP_VERSION=${{ matrix.PHP_VERSION }}' --build-arg 'CODE_COVERAGE=${{ matrix.CODE_COVERAGE }}' .
+        run: docker build -f .github/workflows/test.Dockerfile -t 'test:${{ matrix.PHP_VERSION }}' --build-arg 'PHP_VERSION=${{ matrix.PHP_VERSION }}' .
 
       - name: Cache Composer Cache Dir
         uses: actions/cache@v5
@@ -76,17 +70,7 @@ jobs:
 
       - name: Run Unit Test
         run: |
-          if [ "${{ matrix.CODE_COVERAGE }}" == "true" ]; then
-            docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'zend.assertions=1' -d 'pcov.enabled=1' ./vendor/bin/phpunit --coverage-clover=.clover.xml
-          else
-            docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'zend.assertions=1' ./vendor/bin/phpunit
-          fi
-
-      - name: Upload Codecov Report
-        uses: codecov/codecov-action@v1
-        if: ${{ matrix.CODE_COVERAGE == 'true' }}
-        with:
-          file: .clover.xml
+          docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/workdir" 'test:${{ matrix.PHP_VERSION }}' php -d 'zend.assertions=1' ./vendor/bin/phpunit
 
       - name: Run PHPStan
         if: ${{ matrix.RUN_PHPSTAN == 'true' }}
