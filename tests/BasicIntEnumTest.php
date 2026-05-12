@@ -38,8 +38,14 @@ class BasicIntEnumTest extends TestCase
 
     public function testFromInvalidValue(): void
     {
+        if (PHP_VERSION_ID < 80200) {
+            $enumClass = '"' . BasicIntEnum::class . '"';
+        } else {
+            $enumClass = BasicIntEnum::class;
+        }
+
+        $this->expectExceptionMessage("10 is not a valid backing value for enum {$enumClass}");
         $this->expectException('ValueError');
-        $this->expectExceptionMessage('10 is not a valid backing value for enum "BasicIntEnum"');
         BasicIntEnum::from(10);
     }
 
@@ -74,13 +80,20 @@ class BasicIntEnumTest extends TestCase
         if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
             $class = EmulatedIntEnum::class;
             $type  = 'string|int';
+            $given = 'bool';
         } else {
             $class = BasicIntEnum::class;
             $type  = 'int';
+
+            if (PHP_VERSION_ID >= 80300) {
+                $given = 'true';
+            } else {
+                $given = 'bool';
+            }
         }
 
         $this->expectException('TypeError');
-        $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, bool given");
+        $this->expectExceptionMessage("{$class}::from(): Argument #1 (\$value) must be of type {$type}, {$given} given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::from(true);
@@ -169,13 +182,20 @@ class BasicIntEnumTest extends TestCase
         if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80100) {
             $class = EmulatedIntEnum::class;
             $type  = 'string|int';
+            $given = 'bool';
         } else {
             $class = BasicIntEnum::class;
             $type  = 'int';
+
+            if (PHP_VERSION_ID >= 80300) {
+                $given = 'true';
+            } else {
+                $given = 'bool';
+            }
         }
 
         $this->expectException('TypeError');
-        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, bool given");
+        $this->expectExceptionMessage("{$class}::tryFrom(): Argument #1 (\$value) must be of type {$type}, {$given} given");
 
         /** @phpstan-ignore-next-line */
         BasicIntEnum::tryFrom(true);

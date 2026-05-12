@@ -51,11 +51,7 @@ namespace {
                     return 'class@anonymous';
                 default:
                     /** @var resource $value */
-                    /** @var string|null $type */
                     $type = @get_resource_type($value);
-                    if (null === $type) {
-                        return 'unknown';
-                    }
 
                     if ('Unknown' === $type) {
                         $type = 'closed';
@@ -79,7 +75,6 @@ namespace Mabe\Enum\Cl {
     function enum_exists(string $enum, bool $autoload = true) : bool
     {
         if (\PHP_VERSION_ID >= 80100) {
-            /** @phpstan-ignore-next-line */
             return \enum_exists($enum, $autoload);
         }
 

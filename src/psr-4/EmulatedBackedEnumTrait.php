@@ -57,6 +57,7 @@ trait EmulatedBackedEnumTrait
     /** @param string|int $value */
     final private function __construct(string $name, $value)
     {
+        /** @phpstan-ignore-next-line */
         $this->name = $name;
 
         /** @phpstan-ignore-next-line */
